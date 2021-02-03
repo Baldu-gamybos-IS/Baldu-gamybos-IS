@@ -9,4 +9,3 @@ namespace Baldu_gamybos_IS.Models
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
     }
 }
-//efe
