@@ -1,13 +1,13 @@
-﻿using Baldu_gamybos_IS.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using mvc_auth_test.Models;
 
-namespace Baldu_gamybos_IS.Controllers
+namespace mvc_auth_test.Controllers
 {
     public class HomeController : Controller
     {

@@ -1,1 +1,0 @@
-# Baldu-gamybos-IS

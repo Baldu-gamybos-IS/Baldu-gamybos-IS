@@ -1,6 +1,6 @@
 using System;
 
-namespace Baldu_gamybos_IS.Models
+namespace mvc_auth_test.Models
 {
     public class ErrorViewModel
     {
