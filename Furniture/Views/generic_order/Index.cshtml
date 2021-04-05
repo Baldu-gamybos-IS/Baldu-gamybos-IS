@@ -1,0 +1,99 @@
+﻿@model IEnumerable<Furniture.Models.generic_order>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.payed_amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.deadline)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.direction)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.comment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.init_date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dest_addr)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dest_zipcode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.distributor.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.supplier.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.order_status.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.profile.username)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.payed_amount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.deadline)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.direction)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.comment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.init_date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dest_addr)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dest_zipcode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.distributor.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.supplier.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.order_status.name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.profile.username)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>
