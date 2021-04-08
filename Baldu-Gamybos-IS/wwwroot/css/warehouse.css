@@ -1,0 +1,111 @@
+
+#customers {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+}
+
+#customers td, #customers th {
+    border: 1px solid #C0C0C0;
+    padding: 8px;
+}
+
+#customers tr:nth-child(even) {
+    background-color: #FFF;
+}
+
+#customers tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+#customers tr:hover {
+    background-color: #ddd;
+}
+
+#customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: center;
+    background-color: #42b947;
+    color: white;
+    text-transform: uppercase;
+}
+
+.mvr {
+    position: relative;
+    left: 21px;
+    margin-top: 5px;
+}
+
+.btn {
+    background-color: aqua;
+    font-weight: bold;
+    border: 1px solid black;
+    font-size: 100%;
+    font-weight: 700;
+    background-color: aqua;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.error {
+    color: red;
+    display: none;
+}
+
+.bold2 {
+    font-weight: 800;
+    color: #262626;
+    text-shadow: -2px 0 0 #b3b3b3, 0 1px #a6a6a6, 1px 0 #999999, 0 -2px #8c8c8c;
+    font-size: 160%;
+}
+
+.txt {
+    border-radius: 5px;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 150%;
+}
+
+textarea {
+    min-width: 410px;
+    max-width: 410px;
+    max-height: 300px;
+    min-height: 300px;
+}
+
+
+
+.box {
+    box-shadow:
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 100px 80px rgba(0, 0, 0, 0.12); 
+    min-height: 30px;
+    background: white;
+    border-radius: 5px;
+  }
+
+  .boxall {
+    box-shadow:
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+    0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+    0 12.5px 10px rgba(0, 0, 0, 0.06),
+    0 22.3px 17.9px rgba(0, 0, 0, 0.072),
+    0 32.8px 33.4px rgba(0, 0, 0, 0.086),
+    0 0 3px #333;
+
+    min-height: 30px;
+    background: white;
+    border-radius: 5px;
+  }
+  
+  
+  body {
+    background: #EEF2F7;
+  }
