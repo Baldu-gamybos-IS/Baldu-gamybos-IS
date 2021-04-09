@@ -3,6 +3,20 @@
 @{
     ViewData["Title"] = "Orders";
 }
+@section Scripts{
+<script type="text/javascript">  
+   $(document).ready(function() {
+     $("#filter1").change(function filterChanged() {  
+        var fl = $('#filter1').find("option:selected").val();
+        TempData["filter1"]=fl;
+        location.reload();  
+
+    }  )})
+    
+</script>  
+
+}
+
 <!DOCTYPE html>
 <head>
         <link rel="stylesheet" href="~/css/warehouse.css"/>
@@ -44,7 +58,7 @@
                     </td>
                     <td class="wire">
                         
-                        @Html.DropDownList("filter1",new SelectList(new[] {"Mums","Klientams"}),"Pasirinkite kryptį",new { @onchange = "Context.['filter1']=this.value;location.reload();" })
+                        @Html.DropDownList("filter1",new SelectList(new[] {"Mums","Klientams"}),"Pasirinkite kryptį")
                         
                     </td>
 
@@ -58,22 +72,25 @@
                     <th style="width:10%"></th>
                 </tr>
                 @foreach(var item in Model){
-                     
+                    <a>@Context.Request.Query["filter1"].FirstOrDefault()</a>
                     var filt1=Context.Request.Query["filter1"].FirstOrDefault();
-                    
-                    <a>@filt1</a>
-                    if( filt1==null || item.Direction==null || ( filt1=="Mums" && (bool)item.Direction) || (filt1=="Klientams" && !(bool)item.Direction) ){
-                    <tr>
-                        <td class='center'>@item.Id</td>
-                        <td class='center'>@item.FkStatusNavigation.Name</td>
-                        <td class='center'>@item.Price</td>
-                        <td class='center'>@item.PayedAmount</td>
-                        <td class='center'>@((bool)item.Direction ? "Mums" : "Klientui")</td>
 
-                        <td>
-                            <a href='./OrderInfo?id=@item.Id' class='btn' style='background-color:#00d4ff; color:black'>Peržiūrėti</a>
-                        </td>
-                    </tr>
+                    if(TempData["filter1"]!=null)
+                        filt1=TempData["filter1"].ToString();
+
+                    
+                    if( filt1==null || item.Direction==null || ( filt1=="Mums" && (bool)item.Direction) || (filt1=="Klientams" && !(bool)item.Direction) ){
+                        <tr>
+                            <td class='center'>@item.Id</td>
+                            <td class='center'>@item.FkStatusNavigation.Name</td>
+                            <td class='center'>@item.Price</td>
+                            <td class='center'>@item.PayedAmount</td>
+                            <td class='center'>@((bool)item.Direction ? "Mums" : "Klientui")</td>
+
+                            <td>
+                                <a href='./OrderInfo?id=@item.Id' class='btn' style='background-color:#00d4ff; color:black'>Peržiūrėti</a>
+                            </td>
+                        </tr>
                     }
                 }
                 <tr>
