@@ -44,7 +44,7 @@
                     </td>
                     <td class="wire">
                         
-                        @Html.DropDownList("filter1",new SelectList(new[] {new SelectListItem{Value="Mums",Text="Mums"},new SelectListItem{Value="Klientams",Text="Klientams"}}),"Pasirinkite kryptį",new { @onchange = "filter1=this.value;location.reload();" })
+                        @Html.DropDownList("filter1",new SelectList(new[] {"Mums","Klientams"}),"Pasirinkite kryptį",new { @onchange = "Context.['filter1']=this.value;location.reload();" })
                         
                     </td>
 

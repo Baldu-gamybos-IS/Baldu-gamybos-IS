@@ -40,45 +40,15 @@ namespace mvc_auth_test.Controllers
             });
             return View(orders);
         }
-
-        public ActionResult ChangeWarehouse(int id)
-        {
-            var resource = Context.Resources.Select(t => new Resource());
-            ViewData["error"] = 0;
-            var res = Context.Resources.Where(c => c.Id == id).FirstOrDefault();
-            return View(res);
+        public IActionResult OrderInfo(int orderId){
+            
+            var orderinfo=Context.GenericOrders.Where(go => go.Id==orderId).Select(go=> new GenericOrder{
+                Id=go.Id
+            });
+            return View(orderinfo);
         }
 
-        [HttpPost]
-        public IActionResult ChangeValue(Resource resource){
-            ViewData["error"] = 0;
 
-            if(resource.LeftAmount == null)
-            {
-                ViewData["error"] = 1;
-                return  View("ChangeWarehouse", resource);
-            }else if(resource.LeftAmount == null){
-                ViewData["error"] = 2;
-                return  View("ChangeWarehouse", resource);
-            }
-
-            if(resource.LeftAmount < 0 && resource.UnitPrice < 0){
-                ViewData["error"] = 3;
-                return  View("ChangeWarehouse", resource);
-            }  
-            else if(resource.LeftAmount < 0){            
-                ViewData["error"] = 1;
-                return  View("ChangeWarehouse", resource);
-            }
-            else if (resource.UnitPrice < 0)
-            {
-                ViewData["error"] = 2;
-                return  View("ChangeWarehouse", resource);
-            }
-            ViewData["Success2"] = true;
-            Context.Resources.Update(resource);
-            Context.SaveChanges(); 
-            return  View("ChangeWarehouse", resource);
-        }
+            
     }
 }
