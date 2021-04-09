@@ -31,7 +31,7 @@
                 <tr style="background-color:white;">
                     <td colspan="5"  class="wire boxall" style="left:0px; width:95%">
                         <h4>
-                            <b class="bold ">Sandėlio likučių sąrašas:</b>
+                            <b class="bold ">Užsakymų sąrašas:</b>
                         </h4>
                     </td>
                     <br/>
@@ -39,9 +39,15 @@
                 </tr>
                 <tr style="height: 40px;"></tr>
                 <tr style="background-color:white;">
-                    <td colspan="5" class="wire">
+                    <td colspan="3" class="wire">
                         <a id="nj" href="naujasUzsakymas" class="btn button" name="submit">Naujas užsakymas</a>
                     </td>
+                    <td class="wire">
+                        
+                        @Html.DropDownList("filter1",new SelectList(new[] {new SelectListItem{Value="Mums",Text="Mums"},new SelectListItem{Value="Klientams",Text="Klientams"}}),"Pasirinkite kryptį",new { @onchange = "filter1=this.value;location.reload();" })
+                        
+                    </td>
+
                 </tr>
                 <tr>
                     <th style="width:10%">NR</th>
@@ -52,6 +58,11 @@
                     <th style="width:10%"></th>
                 </tr>
                 @foreach(var item in Model){
+                     
+                    var filt1=Context.Request.Query["filter1"].FirstOrDefault();
+                    
+                    <a>@filt1</a>
+                    if( filt1==null || item.Direction==null || ( filt1=="Mums" && (bool)item.Direction) || (filt1=="Klientams" && !(bool)item.Direction) ){
                     <tr>
                         <td class='center'>@item.Id</td>
                         <td class='center'>@item.FkStatusNavigation.Name</td>
@@ -63,6 +74,7 @@
                             <a href='./OrderInfo?id=@item.Id' class='btn' style='background-color:#00d4ff; color:black'>Peržiūrėti</a>
                         </td>
                     </tr>
+                    }
                 }
                 <tr>
                     <th colspan="6"> &#160;</th>
