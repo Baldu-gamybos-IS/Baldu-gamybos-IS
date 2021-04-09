@@ -39,5 +39,26 @@ namespace Baldu_Gamybos_IS.Models
         public virtual ICollection<OrderResource> OrderResources { get; set; }
         public virtual ICollection<Payment> Payments { get; set; }
         public virtual ICollection<Product> Products { get; set; }
+
+
+        public GenericOrder(GenericOrder r)
+        {
+            Id = r.Id;
+            Price = r.Price;
+            PayedAmount=r.PayedAmount;
+            Deadline =r.Deadline;
+            Direction =r.Direction;
+            Comment =r.Comment;
+            InitDate =r.InitDate;
+            DestAddr =r.DestAddr;
+            DestZipcode =r.DestZipcode;
+            FkStatus=r.FkStatus;
+            FkProfile=r.FkProfile;
+            FkDistributor=r.FkDistributor;
+            FkSupplier =r.FkSupplier;
+            
+
+
+        }
     }
 }

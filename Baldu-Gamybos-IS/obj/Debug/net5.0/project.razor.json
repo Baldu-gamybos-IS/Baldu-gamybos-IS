@@ -1,5 +1,5 @@
 {
-  "FilePath": "c:\\Users\\Antanas\\source\\repos\\Baldu-Gamybos-IS\\Baldu-Gamybos-IS\\Baldu-Gamybos-IS.csproj",
+  "FilePath": "g:\\project\\Baldu-gamybos-IS\\Baldu-Gamybos-IS\\Baldu-Gamybos-IS.csproj",
   "Configuration": {
     "ConfigurationName": "MVC-3.0",
     "LanguageVersion": "5.0",
@@ -15603,48 +15603,58 @@
   "RootNamespace": "Baldu_Gamybos_IS",
   "Documents": [
     {
-      "FilePath": "c:\\Users\\Antanas\\source\\repos\\Baldu-Gamybos-IS\\Baldu-Gamybos-IS\\Views\\_ViewStart.cshtml",
-      "TargetPath": "Views\\_ViewStart.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\Antanas\\source\\repos\\Baldu-Gamybos-IS\\Baldu-Gamybos-IS\\Views\\Home\\Index.cshtml",
+      "FilePath": "g:\\project\\Baldu-gamybos-IS\\Baldu-Gamybos-IS\\Views\\Home\\Index.cshtml",
       "TargetPath": "Views\\Home\\Index.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\Users\\Antanas\\source\\repos\\Baldu-Gamybos-IS\\Baldu-Gamybos-IS\\Views\\Shared\\_Layout.cshtml",
-      "TargetPath": "Views\\Shared\\_Layout.cshtml",
+      "FilePath": "g:\\project\\Baldu-gamybos-IS\\Baldu-Gamybos-IS\\Views\\Orders\\Orders.cshtml",
+      "TargetPath": "Views\\Orders\\Orders.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\Users\\Antanas\\source\\repos\\Baldu-Gamybos-IS\\Baldu-Gamybos-IS\\Views\\_ViewImports.cshtml",
-      "TargetPath": "Views\\_ViewImports.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\Antanas\\source\\repos\\Baldu-Gamybos-IS\\Baldu-Gamybos-IS\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
-      "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
-      "FileKind": "mvc"
-    },
-    {
-      "FilePath": "c:\\Users\\Antanas\\source\\repos\\Baldu-Gamybos-IS\\Baldu-Gamybos-IS\\Views\\Warehouse\\ChangeWarehouse.cshtml",
+      "FilePath": "g:\\project\\Baldu-gamybos-IS\\Baldu-Gamybos-IS\\Views\\Warehouse\\ChangeWarehouse.cshtml",
       "TargetPath": "Views\\Warehouse\\ChangeWarehouse.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\Users\\Antanas\\source\\repos\\Baldu-Gamybos-IS\\Baldu-Gamybos-IS\\Views\\Home\\Privacy.cshtml",
+      "FilePath": "g:\\project\\Baldu-gamybos-IS\\Baldu-Gamybos-IS\\Views\\Home\\Privacy.cshtml",
       "TargetPath": "Views\\Home\\Privacy.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\Users\\Antanas\\source\\repos\\Baldu-Gamybos-IS\\Baldu-Gamybos-IS\\Views\\Warehouse\\Warehouse.cshtml",
+      "FilePath": "g:\\project\\Baldu-gamybos-IS\\Baldu-Gamybos-IS\\Views\\Shared\\_Layout.cshtml",
+      "TargetPath": "Views\\Shared\\_Layout.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "g:\\project\\Baldu-gamybos-IS\\Baldu-Gamybos-IS\\Views\\_ViewImports.cshtml",
+      "TargetPath": "Views\\_ViewImports.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "g:\\project\\Baldu-gamybos-IS\\Baldu-Gamybos-IS\\Views\\Orders\\OrderInfo.cshtml",
+      "TargetPath": "Views\\Orders\\OrderInfo.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "g:\\project\\Baldu-gamybos-IS\\Baldu-Gamybos-IS\\Views\\Shared\\Error.cshtml",
+      "TargetPath": "Views\\Shared\\Error.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "g:\\project\\Baldu-gamybos-IS\\Baldu-Gamybos-IS\\Views\\Warehouse\\Warehouse.cshtml",
       "TargetPath": "Views\\Warehouse\\Warehouse.cshtml",
       "FileKind": "mvc"
     },
     {
-      "FilePath": "c:\\Users\\Antanas\\source\\repos\\Baldu-Gamybos-IS\\Baldu-Gamybos-IS\\Views\\Shared\\Error.cshtml",
-      "TargetPath": "Views\\Shared\\Error.cshtml",
+      "FilePath": "g:\\project\\Baldu-gamybos-IS\\Baldu-Gamybos-IS\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
+      "TargetPath": "Views\\Shared\\_ValidationScriptsPartial.cshtml",
+      "FileKind": "mvc"
+    },
+    {
+      "FilePath": "g:\\project\\Baldu-gamybos-IS\\Baldu-Gamybos-IS\\Views\\_ViewStart.cshtml",
+      "TargetPath": "Views\\_ViewStart.cshtml",
       "FileKind": "mvc"
     }
   ],
