@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Baldu_Gamybos_IS.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace mvc_auth_test.Controllers
 {
@@ -41,8 +42,10 @@ namespace mvc_auth_test.Controllers
             return View(orders);
         }
         public IActionResult OrderInfo(int id){
-            
-            var orderinfo=Context.GenericOrders.Select(r=> new GenericOrder{
+            var checking=Context.GenericOrders.Include(h=> h.OrderResources).
+            ThenInclude(g=>g.FkResourceNavigation).
+            Include(b=>b.Products).
+            ThenInclude(c=>c.ProductResources).ThenInclude(d=>d.FkResourceNavigation).Select(r=> new GenericOrder{
                 Id = r.Id,
                 Price = r.Price,
                 PayedAmount=r.PayedAmount,
@@ -65,10 +68,48 @@ namespace mvc_auth_test.Controllers
                 
 
             });
-            var ourOrder=orderinfo.Where(r => r.Id==id);
+           
+            var ourOrder=checking.Where(r => r.Id==id).Single();
             return View(ourOrder);
         }
+        public IActionResult OrderState(int id){
+            var checking=Context.GenericOrders.Include(h=> h.OrderResources).
+            ThenInclude(g=>g.FkResourceNavigation).
+            Include(b=>b.Products).
+            ThenInclude(c=>c.ProductResources).ThenInclude(d=>d.FkResourceNavigation).Select(r=> new GenericOrder{
+                Id = r.Id,
+                Price = r.Price,
+                PayedAmount=r.PayedAmount,
+                Deadline =r.Deadline,
+                Direction =r.Direction,
+                Comment =r.Comment,
+                InitDate =r.InitDate,
+                DestAddr =r.DestAddr,
+                DestZipcode =r.DestZipcode,
+                FkStatus=r.FkStatus,
+                FkProfile=r.FkProfile,
+                FkDistributor=r.FkDistributor,
+                FkSupplier =r.FkSupplier,
+                FkStatusNavigation=r.FkStatusNavigation,
+                FkDistributorNavigation=r.FkDistributorNavigation,
+                FkProfileNavigation=r.FkProfileNavigation,
+                FkSupplierNavigation=r.FkSupplierNavigation,
+                Products=r.Products,
+                OrderResources=r.OrderResources,
+                
 
+            });
+           
+            var ourOrder=checking.Where(r => r.Id==id).Single();
+            return View(ourOrder);
+        }
+        public IActionResult ChangeState(int id,int state){
+            var obj=Context.GenericOrders.Where(r=>r.Id==id).Single();
+            obj.FkStatus=state;
+            Context.GenericOrders.Update(obj);
+            Context.SaveChanges();
+            return RedirectToAction("Orders","Orders");
+        }
 
             
     }

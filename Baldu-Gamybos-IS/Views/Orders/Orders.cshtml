@@ -3,19 +3,9 @@
 @{
     ViewData["Title"] = "Orders";
 }
-@section Scripts{
-<script type="text/javascript">  
-   $(document).ready(function() {
-     $("#filter1").change(function filterChanged() {  
-        var fl = $('#filter1').find("option:selected").val();
-        TempData["filter1"]=fl;
-        location.reload();  
 
-    }  )})
-    
-</script>  
 
-}
+
 
 <!DOCTYPE html>
 <head>
@@ -37,10 +27,25 @@
                 border:0px
             }
     </style>
+
+    <script>
+        function sub(value) {
+            showall();
+            var valuerdy="."+value;
+            document.querySelectorAll(valuerdy).forEach(x=>x.style.visibility="collapse");
+
+            console.log("sub"+valuerdy);
+        }
+
+        function showall(){         
+            document.querySelectorAll(".direction1").forEach(x=>x.style.visibility="visible");
+            document.querySelectorAll(".direction2").forEach(x=>x.style.visibility="visible");
+        }
+    </script>
 </head>
 <body>
     <center>
-        <div class="container box" style="width:85%; margin-bottom:2%; height:15%">
+        <div class="container box" style="width:85%; margin-bottom:2%; height:15%; min-width:700px;">
             <table id="customers" style="width:95%;">
                 <tr style="background-color:white;">
                     <td colspan="5"  class="wire boxall" style="left:0px; width:95%">
@@ -58,12 +63,15 @@
                     </td>
                     <td class="wire">
                         
-                        @Html.DropDownList("filter1",new SelectList(new[] {"Mums","Klientams"}),"Pasirinkite kryptį")
-                        
+                        <select class="center btn" style="background-color: white;" name="filter" onchange="sub(this.value)">
+                            <option>Visi</option>
+                            <option value="direction2">Mums</option>
+                            <option value="direction1">Klientams</option>
+                        </select>
                     </td>
 
                 </tr>
-                <tr>
+                <tr >
                     <th style="width:10%">NR</th>
                     <th style="width:20%">Būsena</th>
                     <th style="width:20%">Kaina</th>
@@ -71,27 +79,21 @@
                     <th style="width:10%">Kryptis</th>
                     <th style="width:10%"></th>
                 </tr>
-                @foreach(var item in Model){
-                    <a>@Context.Request.Query["filter1"].FirstOrDefault()</a>
-                    var filt1=Context.Request.Query["filter1"].FirstOrDefault();
-
-                    if(TempData["filter1"]!=null)
-                        filt1=TempData["filter1"].ToString();
-
+                @foreach(var item in Model){                   
+                    var iddummy=(bool)item.Direction ? "direction1" : "direction2";
                     
-                    if( filt1==null || item.Direction==null || ( filt1=="Mums" && (bool)item.Direction) || (filt1=="Klientams" && !(bool)item.Direction) ){
-                        <tr>
-                            <td class='center'>@item.Id</td>
-                            <td class='center'>@item.FkStatusNavigation.Name</td>
-                            <td class='center'>@item.Price</td>
-                            <td class='center'>@item.PayedAmount</td>
-                            <td class='center'>@((bool)item.Direction ? "Mums" : "Klientui")</td>
+                    <tr class=@iddummy>
+                        <td class='center'>@item.Id</td>
+                        <td class='center'>@item.FkStatusNavigation.Name</td>
+                        <td class='center'>@item.Price</td>
+                        <td class='center'>@item.PayedAmount</td>
+                        <td class='center'>@((bool)item.Direction ? "Mums" : "Klientui")</td>
 
-                            <td>
-                                <a href='./OrderInfo?id=@item.Id' class='btn' style='background-color:#00d4ff; color:black'>Peržiūrėti</a>
-                            </td>
-                        </tr>
-                    }
+                        <td>
+                            <a href='./OrderInfo?id=@item.Id' class='btn' style='background-color:#00d4ff; color:black'>Peržiūrėti</a>
+                        </td>
+                    </tr>
+                    
                 }
                 <tr>
                     <th colspan="6"> &#160;</th>
