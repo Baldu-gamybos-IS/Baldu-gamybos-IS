@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Baldu_Gamybos_IS.Models;
+using Baldu_Gamybos_IS.Models.ViewModel.WarehouseView;
+using Microsoft.EntityFrameworkCore;
 
 namespace mvc_auth_test.Controllers
 {
@@ -22,8 +24,11 @@ namespace mvc_auth_test.Controllers
 
         public IActionResult Warehouse()
         {
-            var resource = Context.Resources.Select(r => new Resource(r));
-            return View(resource);
+            var resource = Context.Resources.Select(r => new Resource(r)).ToList();
+            var products = Context.Products.Select(p => new ProductView(p, Context.ProductTypes.Where(t => t.Id == p.Id).FirstOrDefault().Name)).ToList();
+            // Context.GenericOrders.Where(t => t.Id == p.Id).FirstOrDefault().Id)).ToList();
+            var warehouse = new WarehouseView(resource, products);
+            return View(warehouse);
         }
 
         public ActionResult ChangeWarehouse(int id)

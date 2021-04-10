@@ -56,9 +56,6 @@ namespace Baldu_Gamybos_IS.Models
             FkProfile=r.FkProfile;
             FkDistributor=r.FkDistributor;
             FkSupplier =r.FkSupplier;
-            
-
-
         }
     }
 }
