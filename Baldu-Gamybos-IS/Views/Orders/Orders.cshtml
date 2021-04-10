@@ -58,11 +58,13 @@
                 </tr>
                 <tr style="height: 40px;"></tr>
                 <tr style="background-color:white;">
-                    <td colspan="3" class="wire">
+                    <td colspan="4" class="wire">
                         <a id="nj" href="naujasUzsakymas" class="btn button" name="submit">Naujas užsakymas</a>
                     </td>
-                    <td class="wire">
-                        
+                    <td class="wire" style="text-align: right;">
+                        <b><label>Rodyti:</label></b>
+                    </td>
+                    <td class="wire">     
                         <select class="center btn" style="background-color: white;" name="filter" onchange="sub(this.value)">
                             <option>Visi</option>
                             <option value="direction2">Mums</option>
@@ -77,7 +79,7 @@
                     <th style="width:20%">Kaina</th>
                     <th style="width:20%">Sumokėta</th>
                     <th style="width:10%">Kryptis</th>
-                    <th style="width:10%"></th>
+                    <th style="width:10%">Parinktys</th>
                 </tr>
                 @foreach(var item in Model){                   
                     var iddummy=(bool)item.Direction ? "direction1" : "direction2";
