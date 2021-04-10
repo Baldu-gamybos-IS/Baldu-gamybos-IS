@@ -23,6 +23,9 @@ namespace mvc_auth_test.Controllers
 
         public IActionResult Orders()
         {
+            if(TempData["SuccessState"]!=null){
+                ViewData["SuccessState"]=true;
+            }
             var orders = Context.GenericOrders.Select(r => new GenericOrder{         
                 Id = r.Id,
                 Price = r.Price,
@@ -106,6 +109,8 @@ namespace mvc_auth_test.Controllers
         public IActionResult ChangeState(int id,int state){
             var obj=Context.GenericOrders.Where(r=>r.Id==id).Single();
             obj.FkStatus=state;
+            TempData["SuccessState"]=true;
+
             Context.GenericOrders.Update(obj);
             Context.SaveChanges();
             return RedirectToAction("Orders","Orders");
