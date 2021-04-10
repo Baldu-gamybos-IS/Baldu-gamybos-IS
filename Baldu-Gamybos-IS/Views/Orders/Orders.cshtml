@@ -53,6 +53,18 @@
                             <b class="bold ">Užsakymų sąrašas:</b>
                         </h4>
                     </td>
+                    @if(ViewData["SuccessState"] != null)
+                    {
+                        <div id="div-1">
+                            <label class="pull-center" style="color:brown;font-size:30px;">Būsena pakeista<br/></label>
+                        </div>
+                        <script type="text/javascript">
+                            setTimeout(() => {
+                                const elem = document.getElementById("div-1");
+                                elem.parentNode.removeChild(elem);
+                            }, 30000);
+                        </script>
+                    }
                     <br/>
                     <br/>
                 </tr>
@@ -101,6 +113,7 @@
                     <th colspan="6"> &#160;</th>
                 </tr>
             </table>
+            
             <br>
         </div>
     </center>
