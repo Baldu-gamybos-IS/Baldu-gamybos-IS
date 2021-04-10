@@ -40,12 +40,33 @@ namespace mvc_auth_test.Controllers
             });
             return View(orders);
         }
-        public IActionResult OrderInfo(int orderId){
+        public IActionResult OrderInfo(int id){
             
-            var orderinfo=Context.GenericOrders.Where(go => go.Id==orderId).Select(go=> new GenericOrder{
-                Id=go.Id
+            var orderinfo=Context.GenericOrders.Select(r=> new GenericOrder{
+                Id = r.Id,
+                Price = r.Price,
+                PayedAmount=r.PayedAmount,
+                Deadline =r.Deadline,
+                Direction =r.Direction,
+                Comment =r.Comment,
+                InitDate =r.InitDate,
+                DestAddr =r.DestAddr,
+                DestZipcode =r.DestZipcode,
+                FkStatus=r.FkStatus,
+                FkProfile=r.FkProfile,
+                FkDistributor=r.FkDistributor,
+                FkSupplier =r.FkSupplier,
+                FkStatusNavigation=r.FkStatusNavigation,
+                FkDistributorNavigation=r.FkDistributorNavigation,
+                FkProfileNavigation=r.FkProfileNavigation,
+                FkSupplierNavigation=r.FkSupplierNavigation,
+                Products=r.Products,
+                OrderResources=r.OrderResources,
+                
+
             });
-            return View(orderinfo);
+            var ourOrder=orderinfo.Where(r => r.Id==id);
+            return View(ourOrder);
         }
 
 

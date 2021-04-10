@@ -1,7 +1,7 @@
 @model IEnumerable<Baldu_Gamybos_IS.Models.GenericOrder>;
 
 @{
-    ViewData["Title"] = "Warehouse";
+    ViewData["Title"] = "OrderInfo";
 }
 <!DOCTYPE html>
 <head>
@@ -26,38 +26,103 @@
 </head>
 <body>
     <center>
-        <div class="container box" style="width:85%; margin-bottom:2%; height:15%">
-            <table id="customers" style="width:95%;">
+        <div class="container box" style="width:95%; margin-bottom:2%; height:15%">
+            <table id="customers" style="width:100%;">
                 <tr style="background-color:white;">
                     <td colspan="5"  class="wire boxall" style="left:0px; width:95%">
                         <h4>
-                            <b class="bold ">Sandėlio likučių sąrašas:</b>
+                            <b class="bold ">Užsakymo detalesnė informacija</b>
                         </h4>
                     </td>
                     <br/>
                     <br/>
                 </tr>
-                <tr style="height: 40px;"></tr>
-                <tr style="background-color:white;">
-                    <td colspan="5" class="wire">
-                        <a id="nj" href="naujasŽaliava" class="btn button" name="submit">Nauja žaliava</a>
-                    </td>
-                </tr>
-                <tr>
-                    <th style="width:10%">NR</th>
-                    <th>žaliava</th>
-                    <th style="width:65%">Kiekis</th>
-                    <th style="width:10%">Kaina</th>
-                    <th style="width:5%;">Parinktys</th>
-                </tr>
+                <tr style="height: 40px;"></tr>              
+                
                 @foreach(var item in Model){
                     <tr>
-                        <td class='center'>@item.Id</td>
+                        <th style="width:20%">Vardas</th>
+                        <th style="width:20%">Pavardė</th>
+                        <th style="width:30%">Email</th>
+                        <th style="width:30%;">Telefonas</th>
+                    </tr>
+                    <tr>
+                        <td class='center'>@item.FkProfileNavigation.FirstName</td>
+                        <td class='center'>@item.FkProfileNavigation.LastName</td>
+                        <td class='center'>@item.FkProfileNavigation.Email</td>
+                        <td class='center'>@item.FkProfileNavigation.Phone</td>
 
+                    </tr>
+                    <tr>
+                        <th style="width:10%">NR</th>
+                        <th style="width:20%">Būsena</th>
+                        <th style="width:20%">Kaina</th>
+                        <th style="width:20%;">Sumokėta</th>
+                        <th style="width:10%">Kryptis</th>
+                        <th style="width:20%"></th>
+                    </tr>
+                    <tr>
+                        <td class='center'>@item.Id</td>
+                        <td class='center'>@item.FkStatusNavigation.Name</td>
+                        <td class='center'>@item.Price</td>
+                        <td class='center'>@item.PayedAmount</td>
+                        <td class='center'>@((bool)item.Direction ? "Mums" : "Klientui")</td>
                         <td>
-                            <a href='./ChangeWarehouse?id=@item.Id' class='btn' style='background-color:#00d4ff; color:black'>Keisti</a>
+                            <a href='./OrderState?id=@item.Id' class='btn' style='background-color:#00d4ff; color:black'>Keisti būseną</a>
                         </td>
                     </tr>
+                    
+                        @foreach(var product in item.Products){
+                            <tr>
+                                <th style="width:20%">Produktas</th>
+                                <th style="width:10%">NR</th>
+                                <th style="width:20%">Kiekis</th>
+                                <th style="width:20%">Pagaminta</th>
+                                <th style="width:20%">Tipas</th>                                
+                            </tr>
+                            <tr>
+                                <td class='center'></td>
+
+                                <td class='center'>@product.Id</td>
+                                <td class='center'>@product.Count</td>
+                                <td class='center'>@product.MadeCount</td>
+                                <td class='center'>@product.Type</td>
+
+                            </tr>
+                            @foreach(var resource in product.ProductResources){
+                                 <tr>
+                                    <th style="width:30%">Žaliavos</th>
+                                    <th style="width:10%">NR</th>
+                                    <th style="width:30%">Žaliava</th>
+                                    <th style="width:30%">Kiekis</th>
+                                </tr>
+                                <tr>
+                                    <td class='center'></td>
+
+                                    <td class='center'>@resource.Id</td>
+                                    <td class='center'>@resource.FkResourceNavigation.Name</td>
+                                    <td class='center'>@resource.Amount</td>
+
+
+                                </tr>
+                            }
+                        }   
+                        @foreach(var resource in item.OrderResources){
+                            <tr>
+                                <th style="width:30%">Žaliava</th>
+                                <th style="width:10%">NR</th>
+                                <th style="width:30%">Kiekis</th>
+                                <th style="width:30%">Pavadinimas</th>
+                            </tr>
+                            <tr>
+                                <td class='center'></td>
+
+                                <td class='center'>@resource.Id</td>
+                                <td class='center'>@resource.Amount</td>
+                                <td class='center'>@resource.FkResourceNavigation</td> 
+                            </tr>
+                        }
+
                 }
                 <tr>
                     <th colspan="5"> &#160;</th>
