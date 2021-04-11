@@ -14,3 +14,6 @@ dotnet_diagnostic.IDE0053.severity = none
 
 # IDE0049: Use framework type
 dotnet_diagnostic.IDE0049.severity = none
+
+# IDE0021: Use expression body for constructors
+dotnet_diagnostic.IDE0021.severity = none

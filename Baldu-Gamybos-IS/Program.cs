@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Baldu_Gamybos_IS
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {
