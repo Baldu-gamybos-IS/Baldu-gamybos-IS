@@ -26,6 +26,9 @@ namespace mvc_auth_test.Controllers
             if(TempData["SuccessState"]!=null){
                 ViewData["SuccessState"]=true;
             }
+            if (TempData["SuccessfullyCreatedOrder"] != null) {
+                ViewData["SuccessfullyCreatedOrder"] = true;
+            }
             var orders = Context.GenericOrders.Select(r => new GenericOrder{         
                 Id = r.Id,
                 Price = r.Price,
@@ -122,12 +125,12 @@ namespace mvc_auth_test.Controllers
 
         [HttpPost]
         public IActionResult CreateOrder(GenericOrder order) {
-            order.Direction = true;
+            order.Direction = false;
             order.PayedAmount = 0.0f;
             order.FkStatusNavigation = this.Context.OrderStatuses.Find(1);
             order.InitDate = DateTime.UtcNow;
 
-            this.TempData["SuccessState"] = true;
+            this.TempData["SuccessfullyCreatedOrder"] = true;
             this.Context.GenericOrders.Add(order);
             this.Context.SaveChanges();
             return this.RedirectToAction("Orders", "Orders");
