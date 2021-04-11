@@ -116,6 +116,8 @@ namespace mvc_auth_test.Controllers
             return RedirectToAction("Orders","Orders");
         }
 
-            
+        public IActionResult Order() {
+            return View();
+        }
     }
 }
