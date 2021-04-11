@@ -93,15 +93,13 @@
                     <th style="width:10%">Kryptis</th>
                     <th style="width:10%">Parinktys</th>
                 </tr>
-                @foreach(var item in Model){                   
-                    var iddummy=(bool)item.Direction ? "direction1" : "direction2";
-                    
-                    <tr class=@iddummy>
+                @foreach (var item in Model) {
+                    <tr>
                         <td class='center'>@item.Id</td>
-                        <td class='center'>@item.FkStatusNavigation.Name</td>
+                        <td class='center'>@item.FkStatusNavigation?.Name</td>
                         <td class='center'>@item.Price</td>
                         <td class='center'>@item.PayedAmount</td>
-                        <td class='center'>@((bool)item.Direction ? "Mums" : "Klientui")</td>
+                        <td class='center'>@(item.Direction == null ? null : ((bool)item.Direction ? "Mums" : "Klientui"))</td>
 
                         <td>
                             <a href='./OrderInfo?id=@item.Id' class='btn' style='background-color:#00d4ff; color:black'>Peržiūrėti</a>

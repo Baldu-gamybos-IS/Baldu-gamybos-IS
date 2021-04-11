@@ -117,7 +117,16 @@ namespace mvc_auth_test.Controllers
         }
 
         public IActionResult Order() {
-            return View();
+            return this.View("Order", new GenericOrder());
+        }
+
+        [HttpPost]
+        public IActionResult CreateOrder(GenericOrder order) {
+            order.Direction = true;
+			this.TempData["SuccessState"] = true;
+            this.Context.GenericOrders.Add(order);
+            this.Context.SaveChanges();
+            return this.RedirectToAction("Orders", "Orders");
         }
     }
 }

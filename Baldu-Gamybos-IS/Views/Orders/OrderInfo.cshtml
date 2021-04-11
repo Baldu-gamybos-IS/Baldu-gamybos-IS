@@ -46,10 +46,10 @@
                     <th style="width:30%;">Telefonas</th>
                 </tr>
                 <tr>
-                    <td class='center'>@Model.FkProfileNavigation.FirstName</td>
-                    <td class='center'>@Model.FkProfileNavigation.LastName</td>
-                    <td class='center'>@Model.FkProfileNavigation.Email</td>
-                    <td class='center'>@Model.FkProfileNavigation.Phone</td>
+                    <td class='center'>@Model.FkProfileNavigation?.FirstName</td>
+                    <td class='center'>@Model.FkProfileNavigation?.LastName</td>
+                    <td class='center'>@Model.FkProfileNavigation?.Email</td>
+                    <td class='center'>@Model.FkProfileNavigation?.Phone</td>
 
                 </tr>
                 <tr>
@@ -62,10 +62,10 @@
                 </tr>
                 <tr>
                     <td class='center'>@Model.Id</td>
-                    <td class='center'>@Model.FkStatusNavigation.Name</td>
+                    <td class='center'>@Model.FkStatusNavigation?.Name</td>
                     <td class='center'>@Model.Price</td>
                     <td class='center'>@Model.PayedAmount</td>
-                    <td class='center'>@((bool)Model.Direction ? "Mums" : "Klientui")</td>
+					<td class='center'>@(Model.Direction == null ? null : ((bool)Model.Direction ? "Mums" : "Klientui"))</td>
                     <td>
                         <a href='./OrderState?id=@Model.Id' class='btn' style='background-color:#00d4ff; color:black'>Keisti būseną</a>
                     </td>

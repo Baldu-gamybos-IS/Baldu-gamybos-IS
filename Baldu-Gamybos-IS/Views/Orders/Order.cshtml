@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Baldu_Gamybos_IS.Models.GenericOrder;
+@{
 	ViewData["Title"] = "Order";
 }
 
@@ -25,8 +26,46 @@
 </head>
 <body>
 	<center>
-		<div class="container box" style="width:95%; margin-bottom:2%; height:15%">
-			
-		</div>
+		<form asp-controller="Orders" asp-action="CreateOrder" method="POST">
+			<div class="container box" style="width:95%; margin-bottom:2%; height:15%">
+				<div colspan="6" class="wire boxall" style="left:0px; width:95%">
+					<h4>
+						<b class="bold">Suveskite užsakymo duomenis:</b>
+					</h4>
+				</div>
+				<table id="customers" style="width:95%;">
+					<tr>
+						<th style="width:20%">Adresas</th>
+						<th style="width:20%">Pašto kodas</th>
+						<th style="width:10%">Kiekis</th>
+						<th style="width:39%">Komentaras</th>
+						<th style="width:11%">Failai</th>
+					</tr>
+					<tr>
+						<td>
+							@Html.TextBoxFor(model => model.DestAddr, new { style = "width:100%", required = "required", placeholder = "Adresas" })
+						</td>
+						<td>
+							@Html.TextBoxFor(model => model.DestZipcode, new { style = "width:100%", placeholder = "Pašto kodas" })
+						</td>
+						<td>
+							@Html.TextBoxFor(model => model.GetProduct().Count, new { style = "width:100%", type = "number", min = 1, max = 1000, required = "required", placeholder = "Kiekis" })
+						</td>
+						<td>
+							@Html.TextAreaFor(model => model.Comment, new { style = "min-width:100%; min-height:100%", wrap = "hard", placeholder = "Komentaras" })
+						</td>
+						<td>
+							@Html.TextBoxFor(model => model.Files, new { style = "width:100%", type = "file", multiple = "multiple" })
+						</td>
+					</tr>
+					<tr>
+						<th colspan=4></th>
+						<th>
+							<button type="submit" style='background-color:#00d4ff; color:black'>Užsakyti</button>
+						</th>
+					</tr>
+				</table>
+			</div>
+		</form>
 	</center>
 </body>
