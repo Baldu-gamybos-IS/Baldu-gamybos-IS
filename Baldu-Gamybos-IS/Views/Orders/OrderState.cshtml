@@ -62,7 +62,7 @@
                 <tr>
                     <td class='center'>@Model.Id</td>
                     <td class='center'>@Model.FkStatusNavigation?.Name</td>
-                    <td class='center'>@Model.Price</td>
+					<td class='center'>@(Model.Price == null ? "nenustatyta" : Model.Price)</td>
                     <td class='center'>@Model.PayedAmount</td>
 					<td class='center'>@(Model.Direction == null ? null : ((bool)Model.Direction ? "Mums" : "Klientui"))</td>                    
                 </tr>

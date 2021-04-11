@@ -123,7 +123,11 @@ namespace mvc_auth_test.Controllers
         [HttpPost]
         public IActionResult CreateOrder(GenericOrder order) {
             order.Direction = true;
-			this.TempData["SuccessState"] = true;
+            order.PayedAmount = 0.0f;
+            order.FkStatusNavigation = this.Context.OrderStatuses.Find(1);
+            order.InitDate = DateTime.UtcNow;
+
+            this.TempData["SuccessState"] = true;
             this.Context.GenericOrders.Add(order);
             this.Context.SaveChanges();
             return this.RedirectToAction("Orders", "Orders");
