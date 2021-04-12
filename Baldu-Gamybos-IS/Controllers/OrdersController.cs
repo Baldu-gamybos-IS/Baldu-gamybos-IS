@@ -44,7 +44,7 @@ namespace mvc_auth_test.Controllers
             });
             return View(orders);
         }
-        public IActionResult OrderInfo(int id){
+        public IActionResult ShowOrder(int id){
             var checking=Context.GenericOrders.Include(h=> h.OrderResources).
             ThenInclude(g=>g.FkResourceNavigation).
             Include(b=>b.Products).
