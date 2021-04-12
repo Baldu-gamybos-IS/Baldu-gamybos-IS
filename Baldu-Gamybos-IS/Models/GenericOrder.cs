@@ -57,5 +57,15 @@ namespace Baldu_Gamybos_IS.Models
             FkDistributor=r.FkDistributor;
             FkSupplier =r.FkSupplier;
         }
+
+        public Product GetProduct() {
+            IEnumerator<Product> enumerator = this.Products.GetEnumerator();
+            if (enumerator.MoveNext()) {
+                return enumerator.Current;
+            } else {
+                this.Products.Add(new Product());
+                return this.GetProduct();
+            }
+        }
     }
 }

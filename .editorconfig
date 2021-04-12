@@ -1,0 +1,19 @@
+﻿[*.cs]
+
+# IDE0058: Expression value is never used
+dotnet_diagnostic.IDE0058.severity = none
+
+# IDE0055: Fix formatting
+dotnet_diagnostic.IDE0055.severity = none
+
+# IDE0022: Use expression body for methods
+dotnet_diagnostic.IDE0022.severity = none
+
+# IDE0053: Use expression body for lambda expressions
+dotnet_diagnostic.IDE0053.severity = none
+
+# IDE0049: Use framework type
+dotnet_diagnostic.IDE0049.severity = none
+
+# IDE0021: Use expression body for constructors
+dotnet_diagnostic.IDE0021.severity = none

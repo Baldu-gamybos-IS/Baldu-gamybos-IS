@@ -47,27 +47,37 @@
     <center>
         <div class="container box" style="width:85%; margin-bottom:2%; height:15%; min-width:700px;">
             <table id="customers" style="width:95%;">
-                <tr style="background-color:white;">
-                    <td colspan="6"  class="wire boxall" style="left:0px; width:95%">
-                        <h4>
-                            <b class="bold ">Užsakymų sąrašas:</b>
-                        </h4>
-                    </td>
-                    @if(ViewData["SuccessState"] != null)
-                    {
-                        <div id="div-1">
-                            <label class="pull-center" style="color:brown;font-size:30px;">Būsena pakeista<br/></label>
-                        </div>
-                        <script type="text/javascript">
-                            setTimeout(() => {
-                                const elem = document.getElementById("div-1");
-                                elem.parentNode.removeChild(elem);
-                            }, 30000);
-                        </script>
-                    }
-                    <br/>
-                    <br/>
-                </tr>
+				<tr style="background-color:white;">
+					<td colspan="6" class="wire boxall" style="left:0px; width:95%">
+						<h4>
+							<b class="bold ">Užsakymų sąrašas:</b>
+						</h4>
+					</td>
+					@if (ViewData["SuccessState"] != null) {
+						<div id="div-1">
+							<label class="pull-center" style="color:brown;font-size:30px;">Būsena pakeista<br /></label>
+						</div>
+						<script type="text/javascript">
+							setTimeout(() => {
+								const elem = document.getElementById("div-1");
+								elem.parentNode.removeChild(elem);
+							}, 30000);
+						</script>
+					}
+					@if (ViewData["SuccessfullyCreatedOrder"] != null) {
+						<div id="div-1">
+							<label class="pull-center" style="color:brown;font-size:30px;">Užsakymas sėkmingai sukurtas<br /></label>
+						</div>
+						<script type="text/javascript">
+							setTimeout(() => {
+								const elem = document.getElementById("div-1");
+								elem.parentNode.removeChild(elem);
+							}, 30000);
+						</script>
+					}
+					<br />
+					<br />
+				</tr>
                 <tr style="height: 40px;"></tr>
                 <tr style="background-color:white;">
                     <td colspan="4" class="wire">
@@ -93,15 +103,13 @@
                     <th style="width:10%">Kryptis</th>
                     <th style="width:10%">Parinktys</th>
                 </tr>
-                @foreach(var item in Model){                   
-                    var iddummy=(bool)item.Direction ? "direction1" : "direction2";
-                    
-                    <tr class=@iddummy>
+                @foreach (var item in Model) {
+                    <tr>
                         <td class='center'>@item.Id</td>
-                        <td class='center'>@item.FkStatusNavigation.Name</td>
-                        <td class='center'>@item.Price</td>
+                        <td class='center'>@item.FkStatusNavigation?.Name</td>
+						<td class='center'>@(item.Price == null ? "nenustatyta" : item.Price)</td>
                         <td class='center'>@item.PayedAmount</td>
-                        <td class='center'>@((bool)item.Direction ? "Mums" : "Klientui")</td>
+                        <td class='center'>@(item.Direction == null ? null : ((bool)item.Direction ? "Mums" : "Klientui"))</td>
 
                         <td>
                             <a href='./ShowOrder?id=@item.Id' class='btn' style='background-color:#00d4ff; color:black'>Peržiūrėti</a>

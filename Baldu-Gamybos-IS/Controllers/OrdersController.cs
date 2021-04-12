@@ -1,12 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Baldu_Gamybos_IS.Models;
 using Microsoft.EntityFrameworkCore;
+using Baldu_Gamybos_IS.Models.ViewModel.OrderView;
 
 namespace mvc_auth_test.Controllers
 {
@@ -25,6 +23,9 @@ namespace mvc_auth_test.Controllers
         {
             if(TempData["SuccessState"]!=null){
                 ViewData["SuccessState"]=true;
+            }
+            if (TempData["SuccessfullyCreatedOrder"] != null) {
+                ViewData["SuccessfullyCreatedOrder"] = true;
             }
             var orders = Context.GenericOrders.Select(r => new GenericOrder{         
                 Id = r.Id,
@@ -116,6 +117,23 @@ namespace mvc_auth_test.Controllers
             return RedirectToAction("Orders","Orders");
         }
 
-            
+        public IActionResult Order() {
+            return this.View("Order", new OrderView());
+        }
+
+        [HttpPost]
+        public IActionResult CreateOrder(OrderView view) {
+            view.Order.Direction = false;
+            view.Order.PayedAmount = 0.0f;
+            view.Order.FkStatusNavigation = this.Context.OrderStatuses.Find(1);
+            view.Order.InitDate = DateTime.UtcNow;
+            //view.Files?.ForEach(file => view.Order.Files.Add(new(file, view.Order)));
+
+            this.TempData["SuccessfullyCreatedOrder"] = true;
+            //this.Context.Files.AddRange(view.Order.Files);
+            this.Context.GenericOrders.Add(view.Order);
+            this.Context.SaveChanges();
+            return this.RedirectToAction("Orders", "Orders");
+        }
     }
 }
