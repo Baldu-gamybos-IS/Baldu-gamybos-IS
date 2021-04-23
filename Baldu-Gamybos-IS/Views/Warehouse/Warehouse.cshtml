@@ -39,7 +39,7 @@
                 }
             }
             else if(value == 1){
-                for(i = -1; i <= @Model.Resources.Count; i++){
+                for(i = -1; i <= @Model.Products.Count; i++){
                     var x = document.getElementById(i+"a").style.visibility == null ? document.getElementById(i+"a").style.visibility : "c";
                     if (x == "c" || x == "visible") {
                         document.getElementById(i+"a").style.visibility = "collapse";
@@ -113,8 +113,10 @@
                     <th style="width:5%;">Parinktys</th>
                 </tr>
                 <div>
+                @{int i = 0, j = 0;}
                 @foreach(var item in Model.Resources){
-                    <tr id=@item.Id style="text-align: center;">
+                    i++;
+                    <tr id=@i style="text-align: center;">
                         <td>@item.Id</td>
                         <td>@item.Name</td>
                         <td>@item.LeftAmount</td>
@@ -144,8 +146,10 @@
                     <th style="width:20%">Vieneto kaina</th>
                     <th style="width:5%;">Užsakymas</th>
                 </tr>
+
                 @foreach(var item in Model.Products){
-                    <tr id=@(item.Id.ToString() + "a") class="center">
+                    j++;
+                    <tr id=@(j.ToString() + 'a') class="center">
                         <td>@item.Id</td>
                         <td>@item.ProductName</td>
                         <td>@item.Count</td>
