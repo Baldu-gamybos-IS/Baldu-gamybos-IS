@@ -60,7 +60,7 @@
                 @if (ViewData["Success"] != null)
                 {
                     <div id="div-1">
-                        <label class="pull-center" style="color:#42b947; font-size:30px;">Tiekėjas pašalintas!!!<br/></label>
+                        <label class="pull-center" style="color:#42b947; font-size:30px;">@ViewData["Success"]<br/></label>
                         <br/>
                     </div>
                     <script type="text/javascript">
@@ -73,7 +73,7 @@
                 <tr style="height: 40px;"></tr>
                 <tr style="background-color:white;">
                     <td colspan="3" class="wire">
-                        <a href="naujasTiekėjas" class="btn button" name="submit">Naujas tiekėjas</a>
+                        <a href="./SupplierManagementWindowCreate" class="btn button" name="submit">Naujas tiekėjas</a>
                     </td>
                 </tr>
                 <tr style="height: 10px;"></tr>
@@ -87,7 +87,7 @@
                         <td>@item.Id</td>
                         <td>@item.Name</td>
                         <td class="wire2">
-                            <a href='./RemoveSupplier?id=@item.Id' class='btn settings' style='background-color:#00d4ff;'>Redaguoti</a>
+                            <a href='./EditSupplier?id=@item.Id' class='btn settings' style='background-color:#00d4ff;'>Redaguoti</a>
                         </td>
                         <td class="wire3">
                             <a href='./RemoveSupplier?id=@item.Id' class='btn settings' style='background-color:red;'>Šalinti</a>

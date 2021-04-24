@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 #nullable disable
 
@@ -13,6 +14,8 @@ namespace Baldu_Gamybos_IS.Models
         }
 
         public int Id { get; set; }
+
+        [Required(ErrorMessage = "Trūksta tiekėjo pavadinimo!")]
         public string Name { get; set; }
         public bool Remove { get; set; }
 
