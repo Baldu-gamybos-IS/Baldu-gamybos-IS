@@ -34,7 +34,7 @@
         <div class="container box" style="width:85%; margin-bottom:2%; min-width:700px;">
             <table id="customers" style="width:95%;">
                 <tr style="background-color:white;">
-                    <td colspan="5"  class="wire boxall" style="left:0px; width:95%">
+                    <td colspan="3"  class="wire boxall" style="left:0px; width:95%">
                         <h3>
                             <b class="bold ">Tiekėjų sąrašas:</b>
                         </h3>
@@ -42,6 +42,19 @@
                     <br/>
                     <br/>
                 </tr>
+                @if (ViewData["Success"] != null)
+                {
+                    <div id="div-1">
+                        <label class="pull-center" style="color:#42b947; font-size:30px;">Tiekėjas pašalintas!!!<br/></label>
+                        <br/>
+                    </div>
+                    <script type="text/javascript">
+                        setTimeout(() => {
+                            const elem = document.getElementById("div-1");
+                            elem.parentNode.removeChild(elem);
+                        }, 3000);
+                    </script>
+                }
                 <tr style="height: 40px;"></tr>
                 <tr style="background-color:white;">
                     <td colspan="3" class="wire">

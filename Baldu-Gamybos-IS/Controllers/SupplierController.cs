@@ -24,6 +24,9 @@ namespace mvc_auth_test.Controllers
 
         public IActionResult Supplier()
         {
+            if(TempData["Success"]!=null){
+                ViewData["Success"]=true;
+            }
             var suppliers = Context.Suppliers.Where(s => s.Remove == false).Select(s => new Supplier(s)).ToList();
             return View(suppliers);
         } 
@@ -34,6 +37,7 @@ namespace mvc_auth_test.Controllers
             supplier.Remove = !supplier.Remove;
             Context.Suppliers.Update(supplier);
             Context.SaveChanges();
+            TempData["Success"]=true;
             return RedirectToAction("Supplier");
         }   
     }
