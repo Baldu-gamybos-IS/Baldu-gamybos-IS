@@ -24,8 +24,17 @@ namespace mvc_auth_test.Controllers
 
         public IActionResult Supplier()
         {
-            var suppliers = Context.Suppliers.Select(s => new Supplier(s)).ToList();
+            var suppliers = Context.Suppliers.Where(s => s.Remove == false).Select(s => new Supplier(s)).ToList();
             return View(suppliers);
-        }    
+        } 
+
+        public IActionResult RemoveSupplier(int id)
+        {
+            var supplier = Context.Suppliers.FirstOrDefault(s => s.Remove == false);
+            supplier.Remove = !supplier.Remove;
+            Context.Suppliers.Update(supplier);
+            Context.SaveChanges();
+            return RedirectToAction("Supplier");
+        }   
     }
 }

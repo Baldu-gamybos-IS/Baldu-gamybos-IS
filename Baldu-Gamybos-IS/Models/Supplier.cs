@@ -14,6 +14,7 @@ namespace Baldu_Gamybos_IS.Models
 
         public int Id { get; set; }
         public string Name { get; set; }
+        public bool Remove { get; set; }
 
         public virtual ICollection<GenericOrder> GenericOrders { get; set; }
 
