@@ -16,5 +16,11 @@ namespace Baldu_Gamybos_IS.Models
         public string Name { get; set; }
 
         public virtual ICollection<GenericOrder> GenericOrders { get; set; }
+
+        public Supplier(Supplier supplier)
+        {
+            Id = supplier.Id;
+            Name = supplier.Name;
+        }
     }
 }
