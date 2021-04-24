@@ -24,8 +24,23 @@
                 border:0px
             }
 
+            #customers .wire2 {
+                text-align:right;
+                border-collapse: collapse;
+                border-right: 0px solid;
+            }
+            #customers .wire3 {
+                text-align:left;
+                border-collapse: collapse;
+                border-left: 0px solid;
+            }
+
             .header {
                 background-color: coral;
+            }
+            .settings {
+                font-size:85%;
+                border-radius: 3px;
             }
     </style>
 </head>
@@ -34,7 +49,7 @@
         <div class="container box" style="width:85%; margin-bottom:2%; min-width:700px;">
             <table id="customers" style="width:95%;">
                 <tr style="background-color:white;">
-                    <td colspan="3"  class="wire boxall" style="left:0px; width:95%">
+                    <td colspan="4"  class="wire boxall" style="left:0px; width:95%">
                         <h3>
                             <b class="bold ">Tiekėjų sąrašas:</b>
                         </h3>
@@ -58,21 +73,24 @@
                 <tr style="height: 40px;"></tr>
                 <tr style="background-color:white;">
                     <td colspan="3" class="wire">
-                        <a href="naujasŽaliava" class="btn button" name="submit">Naujas tiekėjas</a>
+                        <a href="naujasTiekėjas" class="btn button" name="submit">Naujas tiekėjas</a>
                     </td>
                 </tr>
                 <tr style="height: 10px;"></tr>
                 <tr>
                     <th style="width:10%">NR</th>
-                    <th style="width:65%">Tiekėjas</th>
-                    <th>Parinktys</th>
+                    <th style="width:50%">Tiekėjas</th>
+                    <th style="width:20%" colspan="2">Parinktys</th>
                 </tr>
                 @foreach(var item in Model){
                     <tr style="text-align: center;">
                         <td>@item.Id</td>
                         <td>@item.Name</td>
-                        <td>
-                            <a href='./RemoveSupplier?id=@item.Id' class='btn' style='background-color:#00d4ff; color:black'>Šalinti</a>
+                        <td class="wire2">
+                            <a href='./RemoveSupplier?id=@item.Id' class='btn settings' style='background-color:#00d4ff;'>Redaguoti</a>
+                        </td>
+                        <td class="wire3">
+                            <a href='./RemoveSupplier?id=@item.Id' class='btn settings' style='background-color:red;'>Šalinti</a>
                         </td>
                     </tr>
                 }
