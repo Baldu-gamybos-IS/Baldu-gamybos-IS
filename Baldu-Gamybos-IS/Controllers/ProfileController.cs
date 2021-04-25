@@ -69,16 +69,18 @@ namespace mvc_auth_test.Controllers
         } 
   
         [HttpGet("login")]
-        public ActionResult Login(string returnUrl)
+        public ActionResult Login()
+        // public ActionResult Login(string returnUrl)
         {
-            ViewData["ReturnUrl"] = returnUrl;
+            // ViewData["ReturnUrl"] = returnUrl;
             return View();
         } 
 
         [HttpPost("login")]
-        public async Task<IActionResult> LoginValidate(string username, string password, string returnUrl)
+        // public async Task<IActionResult> LoginValidate(string username, string password, string returnUrl)
+        public async Task<IActionResult> LoginValidate(string username, string password)
         {
-            ViewData["ReturnUrl"] = returnUrl;
+            // ViewData["ReturnUrl"] = returnUrl;
             
             string hash = Sha256(password);
             IQueryable<Baldu_Gamybos_IS.Models.Profile> profiles = Context.Profiles.Where(s => s.Username == username);
@@ -90,7 +92,7 @@ namespace mvc_auth_test.Controllers
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
                 await HttpContext.SignInAsync(claimsPrincipal);
-                return Redirect(returnUrl);
+                return Redirect("Profile/SignIn");
             }
             TempData["Error"] = "Neteisingas vartotojo vardas arba slaptažodis";
             return View("login");
@@ -101,7 +103,7 @@ namespace mvc_auth_test.Controllers
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync();
-            return Redirect("/");
+            return Redirect("SignIn");
         }
 
         [HttpGet("register")]
@@ -180,7 +182,7 @@ namespace mvc_auth_test.Controllers
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
             await HttpContext.SignInAsync(claimsPrincipal);
-            return Redirect("/Profile/SignIn");
+            return Redirect("Profile/SignIn");
         }
 
 
