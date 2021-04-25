@@ -1,6 +1,8 @@
 using Baldu_Gamybos_IS.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -27,6 +29,28 @@ namespace Baldu_Gamybos_IS
         {
             services.AddControllersWithViews();
             services.AddDbContext<furnitureContext>(options => options.UseMySql(Configuration["DefaultConnection"]));
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options =>
+            {
+                // options.AccessDeniedPath = "/Account/SignIn";
+                options.LoginPath = "/login";
+                // options.LogoutPath = "/Home/SignOut";
+                options.Events = new CookieAuthenticationEvents()
+                {
+                    OnSigningIn = async context =>
+                    {
+                        await Task.CompletedTask;
+                    },
+                    OnSignedIn = async context =>
+                    {
+                        await Task.CompletedTask;
+                    },
+                    OnValidatePrincipal = async context =>
+                    {
+                        await Task.CompletedTask;
+                    }
+                };
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +71,7 @@ namespace Baldu_Gamybos_IS
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -11,7 +11,7 @@ namespace Baldu_Gamybos_IS.Controllers
 {
     public class HomeController : Controller
     {
- private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<HomeController> _logger;
         private readonly furnitureContext Context;
 
         public HomeController(ILogger<HomeController> logger, furnitureContext context)
@@ -30,6 +30,7 @@ namespace Baldu_Gamybos_IS.Controllers
         {
             return View();
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
