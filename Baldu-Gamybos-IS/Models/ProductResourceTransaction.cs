@@ -12,7 +12,7 @@ namespace Baldu_Gamybos_IS.Models
         public int? FkProdRes { get; set; }
         public int? FkProdTrans { get; set; }
 
-        public virtual Product FkProdResNavigation { get; set; }
+        public virtual ProductTransaction FkProdTrans1 { get; set; }
         public virtual ProductResource FkProdTransNavigation { get; set; }
     }
 }
