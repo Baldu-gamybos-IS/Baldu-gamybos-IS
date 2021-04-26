@@ -553,7 +553,7 @@ namespace Baldu_Gamybos_IS.Models
                     .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("product_resource_transaction_ibfk_1");
 
-                entity.HasOne(d => d.FkProdResNavigation)
+                entity.HasOne(d => d.FkProdTrans1)
                     .WithMany(p => p.ProductResourceTransactions)
                     .HasForeignKey(d => d.FkProdTrans)
                     .OnDelete(DeleteBehavior.SetNull)
