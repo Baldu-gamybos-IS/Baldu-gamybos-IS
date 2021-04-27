@@ -51,7 +51,6 @@ namespace Baldu_Gamybos_IS.Models
 
                 entity.Property(e => e.Id)
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever()
                     .HasColumnName("id");
 
                 entity.Property(e => e.EndDate)
@@ -119,11 +118,10 @@ namespace Baldu_Gamybos_IS.Models
             {
                 entity.ToTable("delivery_method");
 
-                entity.HasIndex(e => e.FkOrder, "fk_orderid");
+                entity.HasIndex(e => e.FkOrder, "delivery_method_ibfk_1");
 
                 entity.Property(e => e.Id)
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever()
                     .HasColumnName("id");
 
                 entity.Property(e => e.FkOrder)
@@ -141,6 +139,7 @@ namespace Baldu_Gamybos_IS.Models
                 entity.HasOne(d => d.FkOrderNavigation)
                     .WithMany(p => p.DeliveryMethods)
                     .HasForeignKey(d => d.FkOrder)
+                    .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("delivery_method_ibfk_1");
             });
 
@@ -164,13 +163,12 @@ namespace Baldu_Gamybos_IS.Models
             {
                 entity.ToTable("file");
 
-                entity.HasIndex(e => e.FkContract, "fk_contractid");
+                entity.HasIndex(e => e.FkOrder, "file_ibfk_1");
 
-                entity.HasIndex(e => e.FkOrder, "fk_orderid");
+                entity.HasIndex(e => e.FkContract, "file_ibfk_2");
 
                 entity.Property(e => e.Id)
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever()
                     .HasColumnName("id");
 
                 entity.Property(e => e.FkContract)
@@ -206,11 +204,13 @@ namespace Baldu_Gamybos_IS.Models
                 entity.HasOne(d => d.FkContractNavigation)
                     .WithMany(p => p.Files)
                     .HasForeignKey(d => d.FkContract)
+                    .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("file_ibfk_2");
 
                 entity.HasOne(d => d.FkOrderNavigation)
                     .WithMany(p => p.Files)
                     .HasForeignKey(d => d.FkOrder)
+                    .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("file_ibfk_1");
             });
 
@@ -220,7 +220,7 @@ namespace Baldu_Gamybos_IS.Models
 
                 entity.HasIndex(e => new { e.FkDistributor, e.FkSupplier }, "fk_distributorid");
 
-                entity.HasIndex(e => e.FkSupplier, "fk_supplierid");
+                entity.HasIndex(e => e.FkSupplier, "generic_order_ibfk_2");
 
                 entity.HasIndex(e => e.FkProfile, "multiple");
 
@@ -228,7 +228,6 @@ namespace Baldu_Gamybos_IS.Models
 
                 entity.Property(e => e.Id)
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever()
                     .HasColumnName("id");
 
                 entity.Property(e => e.Comment)
@@ -288,6 +287,7 @@ namespace Baldu_Gamybos_IS.Models
                 entity.HasOne(d => d.FkProfileNavigation)
                     .WithMany(p => p.GenericOrders)
                     .HasForeignKey(d => d.FkProfile)
+                    .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("multiple");
 
                 entity.HasOne(d => d.FkStatusNavigation)
@@ -299,6 +299,7 @@ namespace Baldu_Gamybos_IS.Models
                 entity.HasOne(d => d.FkSupplierNavigation)
                     .WithMany(p => p.GenericOrders)
                     .HasForeignKey(d => d.FkSupplier)
+                    .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("generic_order_ibfk_2");
             });
 
@@ -328,9 +329,9 @@ namespace Baldu_Gamybos_IS.Models
             {
                 entity.ToTable("order_resource");
 
-                entity.HasIndex(e => e.FkOrder, "fk_orderid");
+                entity.HasIndex(e => e.FkResource, "order_resource_ibfk_1");
 
-                entity.HasIndex(e => e.FkResource, "fk_resourceid");
+                entity.HasIndex(e => e.FkOrder, "order_resource_ibfk_2");
 
                 entity.Property(e => e.Id)
                     .HasColumnType("int(11)")
@@ -350,11 +351,13 @@ namespace Baldu_Gamybos_IS.Models
                 entity.HasOne(d => d.FkOrderNavigation)
                     .WithMany(p => p.OrderResources)
                     .HasForeignKey(d => d.FkOrder)
+                    .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("order_resource_ibfk_2");
 
                 entity.HasOne(d => d.FkResourceNavigation)
                     .WithMany(p => p.OrderResources)
                     .HasForeignKey(d => d.FkResource)
+                    .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("order_resource_ibfk_1");
             });
 
@@ -377,13 +380,12 @@ namespace Baldu_Gamybos_IS.Models
             {
                 entity.ToTable("payment");
 
-                entity.HasIndex(e => e.FkOrder, "fk_orderid");
-
                 entity.HasIndex(e => e.FkType, "fk_type");
+
+                entity.HasIndex(e => e.FkOrder, "payment_ibfk_2");
 
                 entity.Property(e => e.Id)
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever()
                     .HasColumnName("id");
 
                 entity.Property(e => e.Amount).HasColumnName("amount");
@@ -405,6 +407,7 @@ namespace Baldu_Gamybos_IS.Models
                 entity.HasOne(d => d.FkOrderNavigation)
                     .WithMany(p => p.Payments)
                     .HasForeignKey(d => d.FkOrder)
+                    .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("payment_ibfk_2");
 
                 entity.HasOne(d => d.FkTypeNavigation)
@@ -424,7 +427,7 @@ namespace Baldu_Gamybos_IS.Models
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasColumnType("char(16)")
+                    .HasColumnType("varchar(255)")
                     .HasColumnName("name")
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_general_ci");
@@ -441,7 +444,6 @@ namespace Baldu_Gamybos_IS.Models
 
                 entity.Property(e => e.Id)
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever()
                     .HasColumnName("id");
 
                 entity.Property(e => e.Count)
@@ -492,9 +494,9 @@ namespace Baldu_Gamybos_IS.Models
             {
                 entity.ToTable("product_resource");
 
-                entity.HasIndex(e => e.FkProduct, "fk_productid");
+                entity.HasIndex(e => e.FkProduct, "product_resource_ibfk_1");
 
-                entity.HasIndex(e => e.FkResource, "fk_resourceid");
+                entity.HasIndex(e => e.FkResource, "product_resource_ibfk_2");
 
                 entity.Property(e => e.Id)
                     .HasColumnType("int(11)")
@@ -513,11 +515,13 @@ namespace Baldu_Gamybos_IS.Models
                 entity.HasOne(d => d.FkProductNavigation)
                     .WithMany(p => p.ProductResources)
                     .HasForeignKey(d => d.FkProduct)
+                    .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("product_resource_ibfk_1");
 
                 entity.HasOne(d => d.FkResourceNavigation)
                     .WithMany(p => p.ProductResources)
                     .HasForeignKey(d => d.FkResource)
+                    .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("product_resource_ibfk_2");
             });
 
@@ -543,30 +547,27 @@ namespace Baldu_Gamybos_IS.Models
 
                 entity.Property(e => e.InitialAmount).HasColumnName("initial_amount");
 
-                entity.HasOne(d => d.FkProdResNavigation)
-                    .WithMany(p => p.ProductResourceTransactions)
-                    .HasForeignKey(d => d.FkProdRes)
-                    .OnDelete(DeleteBehavior.SetNull)
-                    .HasConstraintName("product_resource_transaction_ibfk_2");
-
                 entity.HasOne(d => d.FkProdTransNavigation)
                     .WithMany(p => p.ProductResourceTransactions)
                     .HasForeignKey(d => d.FkProdTrans)
                     .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("product_resource_transaction_ibfk_1");
+
+                entity.HasOne(d => d.FkProdTrans1)
+                    .WithMany(p => p.ProductResourceTransactions)
+                    .HasForeignKey(d => d.FkProdTrans)
+                    .OnDelete(DeleteBehavior.SetNull)
+                    .HasConstraintName("product_resource_transaction_ibfk_3");
             });
 
             modelBuilder.Entity<ProductTransaction>(entity =>
             {
                 entity.ToTable("product_transaction");
 
-                entity.HasIndex(e => e.FkResource, "fk_resource");
-
                 entity.HasIndex(e => e.FkProduct, "product_transaction_ibfk_1");
 
                 entity.Property(e => e.Id)
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever()
                     .HasColumnName("id");
 
                 entity.Property(e => e.Direction).HasColumnName("direction");
@@ -575,25 +576,15 @@ namespace Baldu_Gamybos_IS.Models
                     .HasColumnType("int(11)")
                     .HasColumnName("fk_product");
 
-                entity.Property(e => e.FkResource)
-                    .HasColumnType("int(11)")
-                    .HasColumnName("fk_resource");
-
-                entity.Property(e => e.Timestamp)
-                    .HasColumnType("datetime")
-                    .HasColumnName("timestamp");
+                entity.Property(e => e.Time)
+                    .HasColumnType("timestamp")
+                    .HasColumnName("time");
 
                 entity.HasOne(d => d.FkProductNavigation)
                     .WithMany(p => p.ProductTransactions)
                     .HasForeignKey(d => d.FkProduct)
                     .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("product_transaction_ibfk_1");
-
-                entity.HasOne(d => d.FkResourceNavigation)
-                    .WithMany(p => p.ProductTransactions)
-                    .HasForeignKey(d => d.FkResource)
-                    .OnDelete(DeleteBehavior.SetNull)
-                    .HasConstraintName("product_transaction_ibfk_2");
             });
 
             modelBuilder.Entity<ProductType>(entity =>
@@ -602,7 +593,6 @@ namespace Baldu_Gamybos_IS.Models
 
                 entity.Property(e => e.Id)
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever()
                     .HasColumnName("id");
 
                 entity.Property(e => e.Name)
@@ -619,11 +609,10 @@ namespace Baldu_Gamybos_IS.Models
             {
                 entity.ToTable("profile");
 
-                entity.HasIndex(e => e.FkRole, "roles");
+                entity.HasIndex(e => e.FkRole, "profile_ibfk_1");
 
                 entity.Property(e => e.Id)
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever()
                     .HasColumnName("id");
 
                 entity.Property(e => e.Address)
@@ -681,6 +670,7 @@ namespace Baldu_Gamybos_IS.Models
                 entity.HasOne(d => d.FkRoleNavigation)
                     .WithMany(p => p.Profiles)
                     .HasForeignKey(d => d.FkRole)
+                    .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("profile_ibfk_1");
             });
 
@@ -688,22 +678,15 @@ namespace Baldu_Gamybos_IS.Models
             {
                 entity.ToTable("resource");
 
-                entity.HasIndex(e => e.FkMUnit, "fk_m_unitid");
-
-                entity.HasIndex(e => e.FkResTrans, "fk_resource_transactionid");
+                entity.HasIndex(e => e.FkMUnit, "resource_ibfk_2");
 
                 entity.Property(e => e.Id)
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever()
                     .HasColumnName("id");
 
                 entity.Property(e => e.FkMUnit)
                     .HasColumnType("int(11)")
                     .HasColumnName("fk_m_unit");
-
-                entity.Property(e => e.FkResTrans)
-                    .HasColumnType("int(11)")
-                    .HasColumnName("fk_res_trans");
 
                 entity.Property(e => e.LeftAmount).HasColumnName("left_amount");
 
@@ -718,32 +701,39 @@ namespace Baldu_Gamybos_IS.Models
                 entity.HasOne(d => d.FkMUnitNavigation)
                     .WithMany(p => p.Resources)
                     .HasForeignKey(d => d.FkMUnit)
+                    .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("resource_ibfk_2");
-
-                entity.HasOne(d => d.FkResTransNavigation)
-                    .WithMany(p => p.Resources)
-                    .HasForeignKey(d => d.FkResTrans)
-                    .HasConstraintName("resource_ibfk_1");
             });
 
             modelBuilder.Entity<ResourceTransaction>(entity =>
             {
                 entity.ToTable("resource_transaction");
 
+                entity.HasIndex(e => e.FkResource, "fk_resource");
+
                 entity.Property(e => e.Id)
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever()
                     .HasColumnName("id");
 
                 entity.Property(e => e.Amount).HasColumnName("amount");
 
                 entity.Property(e => e.Direction).HasColumnName("direction");
 
+                entity.Property(e => e.FkResource)
+                    .HasColumnType("int(11)")
+                    .HasColumnName("fk_resource");
+
                 entity.Property(e => e.InitialAmount).HasColumnName("initial_amount");
 
                 entity.Property(e => e.Time)
-                    .HasColumnType("datetime")
+                    .HasColumnType("timestamp")
                     .HasColumnName("time");
+
+                entity.HasOne(d => d.FkResourceNavigation)
+                    .WithMany(p => p.ResourceTransactions)
+                    .HasForeignKey(d => d.FkResource)
+                    .OnDelete(DeleteBehavior.SetNull)
+                    .HasConstraintName("resource_transaction_ibfk_1");
             });
 
             modelBuilder.Entity<Role>(entity =>
@@ -752,7 +742,6 @@ namespace Baldu_Gamybos_IS.Models
 
                 entity.Property(e => e.Id)
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever()
                     .HasColumnName("id");
 
                 entity.Property(e => e.Name)
@@ -776,6 +765,8 @@ namespace Baldu_Gamybos_IS.Models
                     .HasColumnName("name")
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_general_ci");
+
+                entity.Property(e => e.Remove).HasColumnName("remove");
             });
 
             OnModelCreatingPartial(modelBuilder);

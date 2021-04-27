@@ -9,7 +9,6 @@ namespace Baldu_Gamybos_IS.Models
     {
         public Product()
         {
-            ProductResourceTransactions = new HashSet<ProductResourceTransaction>();
             ProductResources = new HashSet<ProductResource>();
             ProductTransactions = new HashSet<ProductTransaction>();
         }
@@ -26,7 +25,6 @@ namespace Baldu_Gamybos_IS.Models
 
         public virtual GenericOrder FkOrderNavigation { get; set; }
         public virtual ProductType FkProductTypeNavigation { get; set; }
-        public virtual ICollection<ProductResourceTransaction> ProductResourceTransactions { get; set; }
         public virtual ICollection<ProductResource> ProductResources { get; set; }
         public virtual ICollection<ProductTransaction> ProductTransactions { get; set; }
     }

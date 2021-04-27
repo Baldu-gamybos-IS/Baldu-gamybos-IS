@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Baldu_Gamybos_IS.Models
 {
-    public class Profile
+    public partial class Profile
     {
         public Profile()
         {
