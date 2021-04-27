@@ -1,4 +1,5 @@
 using System.Linq;
+using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Baldu_Gamybos_IS.Models;
@@ -12,11 +13,54 @@ namespace mvc_auth_test.Controllers
         private class TrEntry
         {
             public double Amount { get; set; }
-            public DateTime Time { get; set; }
+            public long Time { get; set; }
             public TrEntry(double amount, DateTime time)
             {
-                this.Time = time;
+
+                this.Time = ConvertDatetimeToUnixTimeStamp(time);
                 this.Amount = amount;
+            }
+
+        }
+        private class Vector
+        {
+            public double X { get; set; }
+            public double Y { get; set; }
+            public double LastX { get; set; }
+            public double LastY { get; set; }
+            public bool LastDesc { get; set; }
+            
+            public Vector()
+            {
+                this.X = 0.0;
+                this.Y = 0.0;
+                this.LastX = 0.0;
+                this.LastY = 0.0;
+            }
+            
+            public void addDesc(double x, double y)
+            {
+                if (this.LastY < y) {
+                    LastY = y;
+                    LastX = x;
+                } else {
+                    double vectX = x;
+                    double vectY = y;
+                    vectorize(ref vectX, ref vectY);
+                    LastY = y;
+                    LastX = x;
+                    add(vectX, vectY);
+                }
+            }
+            public void add(double x, double y)
+            {
+                this.X += x;
+                this.Y += y;
+            }
+            public void vectorize(ref double x, ref double y)
+            {
+                x -= this.LastX;
+                y -= this.LastY;
             }
 
         }
@@ -28,7 +72,7 @@ namespace mvc_auth_test.Controllers
             _logger = logger;
             Context = context;
         }
-
+        
         public IActionResult Warehouse()
         {
             var resource = Context.Resources.Select(r => new Resource(r)).ToList();
@@ -78,26 +122,23 @@ namespace mvc_auth_test.Controllers
             Context.SaveChanges(); 
             return  View("ChangeWarehouse", resource);
         }
-
+        
+        public static long ConvertDatetimeToUnixTimeStamp(DateTime date)
+        {
+            var dateTimeOffset = new DateTimeOffset(date);
+            var unixDateTime = dateTimeOffset.ToUnixTimeSeconds();
+            return unixDateTime;
+        }
         public Double EstimateResource(int id)
         {
+            long day = 86400; //day in seconds
+            long days30 = day * 30; //30 days in seconds
+
             var r = Context.Resources.Where(d => d.Id == id).FirstOrDefault();
-            Console.Write("Done\n");
             var rt = Context.ResourceTransactions.Where(d => d.FkResource == r.Id).Select(d => new TrEntry((double)d.InitialAmount, (System.DateTime)d.Time)).ToList();
-            Console.Write("Done\n");
             var pr = Context.ProductResources.Where(d => d.FkResource == r.Id).ToList();
-            foreach(var d in pr){
-                Console.Write(d.Id + " ");
-            }
-            Console.Write("Done\n");
             var p_idx = pr.Select(d => d.FkProduct).ToList();
-            foreach(var d in p_idx){
-                Console.Write(d + " ");
-            }
-            Console.Write("Done\n");
             var pt = Context.ProductTransactions.Where(d =>  p_idx.Contains(d.FkProduct)).ToList();
-            // var pt = Context.ProductTransactions.Where(d =>  p_idx.Contains(d.FkProduResourcect) == true).ToList();
-            var prt_ = Context.ProductResourceTransactions.ToList();
             foreach(var _pr in pr) {
                 foreach(var _pt in pt) {
                     var loc_prt = Context.ProductResourceTransactions.Where(d => d.FkProdRes == _pt.Id && d.FkProdTrans == _pr.Id).ToList(); 
@@ -106,12 +147,16 @@ namespace mvc_auth_test.Controllers
                     }
                 }
             }
-            
+            long days30Ago = ConvertDatetimeToUnixTimeStamp(DateTime.Now) - days30;
+            rt = rt.Where(d => d.Time > days30Ago).ToList();
+            Vector v = new Vector();
             foreach(var d in rt){
-                Console.Write(d.Amount + " " + d.Time);
+                v.addDesc((double)d.Time, d.Amount);
             }
+            double left = (-v.LastY / (v.Y /v.X)) / day;
+            Console.WriteLine("x:{0} y:{1} last:{2} slope(s):{3} left:{4}", v.X, v.Y, v.LastY, v.Y /v.X, left);
             // var data = Context.Resources.FromSqlRaw("SELECT t.* FROM (SELECT prt.initial_amount, pt.time FROM resource as r INNER JOIN product_resource as pr ON (r.id={0} AND r.id=pr.fk_resource) INNER JOIN product_resource_transaction as prt ON prt.fk_prod_res=pr.id INNER JOIN product_transaction as pt ON pt.id=prt.fk_prod_trans UNION SELECT rt2.initial_amount, rt2.time FROM resource as r2 INNER JOIN resource_transaction as rt2 ON (r2.id={1} AND r2.id=rt2.fk_resource)) as t ORDER BY t.time LIMIT 50", id, id).ToList();
-            return 0;
+            return left;
         }
 
     }

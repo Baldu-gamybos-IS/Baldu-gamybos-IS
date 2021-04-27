@@ -122,7 +122,7 @@
                         <td>@item.Name</td>
                         <td>@item.LeftAmount</td>
                         <td>@item.UnitPrice</td>
-                        <td>some time</td>
+                        @* <td>@Html.Action("EstimateResource", new { id = item.Id })</td> *@
                         <td>
                             <a href='./ChangeWarehouse?id=@item.Id' class='btn' style='background-color:#00d4ff; color:black'>Keisti</a>
                         </td>
