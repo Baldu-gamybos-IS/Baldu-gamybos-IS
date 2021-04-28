@@ -1,5 +1,6 @@
 using System.Linq;
 using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Baldu_Gamybos_IS.Models;
@@ -76,10 +77,15 @@ namespace mvc_auth_test.Controllers
         public IActionResult Warehouse()
         {
             var resource = Context.Resources.Select(r => new Resource(r)).ToList();
+            List<EstResource> estResource = new List<EstResource>();
+            foreach(var res in resource){
+                double est = EstimateResource(res.Id);
+                EstResource er = new EstResource(res, est);
+                estResource.Add(er);
+            }
             var products = Context.Products.Select(p => new ProductView(p, Context.ProductTypes.Where(t => t.Id == p.Id).FirstOrDefault().Name)).ToList();
             // Context.GenericOrders.Where(t => t.Id == p.Id).FirstOrDefault().Id)).ToList();
-            var warehouse = new WarehouseView(resource, products);
-            EstimateResource(1);
+            var warehouse = new WarehouseView(estResource, products);
             return View(warehouse);
         }
 
@@ -154,7 +160,7 @@ namespace mvc_auth_test.Controllers
                 v.addDesc((double)d.Time, d.Amount);
             }
             double left = (-v.LastY / (v.Y /v.X)) / day;
-            Console.WriteLine("x:{0} y:{1} last:{2} slope(s):{3} left:{4}", v.X, v.Y, v.LastY, v.Y /v.X, left);
+            // Console.WriteLine("x:{0} y:{1} last:{2} slope(s):{3} left:{4}", v.X, v.Y, v.LastY, v.Y /v.X, left);
             // var data = Context.Resources.FromSqlRaw("SELECT t.* FROM (SELECT prt.initial_amount, pt.time FROM resource as r INNER JOIN product_resource as pr ON (r.id={0} AND r.id=pr.fk_resource) INNER JOIN product_resource_transaction as prt ON prt.fk_prod_res=pr.id INNER JOIN product_transaction as pt ON pt.id=prt.fk_prod_trans UNION SELECT rt2.initial_amount, rt2.time FROM resource as r2 INNER JOIN resource_transaction as rt2 ON (r2.id={1} AND r2.id=rt2.fk_resource)) as t ORDER BY t.time LIMIT 50", id, id).ToList();
             return left;
         }
