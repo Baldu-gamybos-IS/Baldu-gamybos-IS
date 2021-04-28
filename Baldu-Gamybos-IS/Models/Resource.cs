@@ -38,4 +38,13 @@ namespace Baldu_Gamybos_IS.Models
             UnitPrice = r.UnitPrice;
         }
     }
+
+    public class EstResource : Resource
+    { 
+        public EstResource(Resource r, double est) : base(r)
+        {
+            this.Est = est;
+        }
+        public double Est { get; set; }
+    }
 }

@@ -9,9 +9,9 @@ namespace Baldu_Gamybos_IS.Models.ViewModel.WarehouseView
     public partial class WarehouseView
     {
 
-        public ICollection<Resource> Resources { get; set; }
+        public ICollection<EstResource> Resources { get; set; }
         public ICollection<ProductView> Products { get; set; }
-        public WarehouseView(ICollection<Resource> resources, ICollection<ProductView> products)
+        public WarehouseView(ICollection<EstResource> resources, ICollection<ProductView> products)
         {
             Resources = resources;
             Products = products;
