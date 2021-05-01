@@ -1,0 +1,90 @@
+@model IEnumerable<Baldu_Gamybos_IS.Models.Distributor>;
+
+@{
+    ViewData["Title"] = "Distributors";
+}
+
+
+
+
+<!DOCTYPE html>
+<head>
+        <link rel="stylesheet" href="~/css/warehouse.css"/>
+        <style>
+            body {
+                margin: 0;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            .center {
+                text-align:center;
+            }
+
+            #customers .wire {
+                text-align: left; 
+                position:relative; 
+                right:9px;  
+                border:0px
+            }
+    </style>
+
+</head>
+<body>
+    <center>
+        <div class="container box" style="width:85%; margin-bottom:2%; height:15%; min-width:700px;">
+            <table id="distributors" style="width:95%;">
+				<tr style="background-color:white;">
+					<td colspan="6" class="wire boxall" style="left:0px; width:95%">
+						<h4>
+							<b class="bold ">Išvežiotojų sąrašas:</b>
+						</h4>
+					</td>
+					@if (ViewData["SuccessState"] != null) {
+						<div id="div-1">
+							<label class="pull-center" style="color:brown;font-size:30px;">Naujas išvežiotojas sėkmingai sukurtas<br /></label>
+						</div>
+						<script type="text/javascript">
+							setTimeout(() => {
+								const elem = document.getElementById("div-1");
+								elem.parentNode.removeChild(elem);
+							}, 30000);
+						</script>
+					}
+					
+					<br />
+					<br />
+				</tr>
+                <tr style="height: 40px;"></tr>
+                <tr style="background-color:white;">
+                    <td colspan="4" class="wire">
+                        <a id="nj" href="NewDistributor" class="btn button" name="submit">Naujas išvežiotojas</a>
+                    </td>
+                    
+
+                </tr>
+                <tr >
+                    <th style="width:10%">NR</th>
+                    <th style="width:40%">Pavadinimas</th>
+                    
+                </tr>
+                @foreach (var item in Model) {
+                    
+                    <tr>
+                        <td class='center'>@item.Id</td>
+                        <td class='center'>@item.Name</td>
+						
+                        @* <td>
+                            <a href='./ShowOrder?id=@item.Id' class='btn' style='background-color:#00d4ff; color:black'>Peržiūrėti</a>
+                        </td> *@
+                    </tr>
+                    
+                }
+                <tr>
+                    <th colspan="6"> &#160;</th>
+                </tr>
+            </table>
+            
+            <br>
+        </div>
+    </center>
+</body>

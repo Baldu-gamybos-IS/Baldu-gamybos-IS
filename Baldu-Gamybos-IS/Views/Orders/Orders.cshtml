@@ -81,7 +81,7 @@
                 <tr style="height: 40px;"></tr>
                 <tr style="background-color:white;">
                     <td colspan="4" class="wire">
-                        <a id="nj" href="naujasUzsakymas" class="btn button" name="submit">Naujas užsakymas</a>
+                        <a id="nj" href="Order" class="btn button" name="submit">Naujas užsakymas</a>
                     </td>
                     <td class="wire" style="text-align: right;">
                         <b><label>Rodyti:</label></b>
@@ -104,7 +104,8 @@
                     <th style="width:10%">Parinktys</th>
                 </tr>
                 @foreach (var item in Model) {
-                    <tr>
+                    
+                    <tr class="@(item.Direction == null ? null : ((bool)item.Direction ? "direction1" : "direction2"))">
                         <td class='center'>@item.Id</td>
                         <td class='center'>@item.FkStatusNavigation?.Name</td>
 						<td class='center'>@(item.Price == null ? "nenustatyta" : item.Price)</td>
