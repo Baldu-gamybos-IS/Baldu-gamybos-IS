@@ -1,0 +1,75 @@
+@model Baldu_Gamybos_IS.Models.Payment;
+@{
+	ViewData["Title"] = "NewPayment";
+}
+
+<!DOCTYPE html>
+<head>
+	<link rel="stylesheet" href="~/css/warehouse.css" />
+	<style>
+		body {
+			margin: 0;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		.center {
+			text-align: center;
+		}
+
+		#customers .wire {
+			text-align: left;
+			position: relative;
+			right: 9px;
+			border: 0px
+		}
+	</style>
+</head>
+<body>
+	<center>
+		<form asp-controller="Payment" asp-action="CreatePayment" method="POST" enctype="multipart/form-data">
+			<div class="container box" style="width:95%; margin-bottom:2%; height:15%">
+				<div colspan="6" class="wire boxall" style="left:0px; width:95%">
+					<h4>
+						<b class="bold">Suveskite mokėjimo duomenis:</b>
+					</h4>
+				</div>
+				<table id="payment" style="width:95%;">
+					<tr>
+						<th style="width:20%">Suma</th>
+						<th style="width:40%">Tipas</th>
+						<th style="width:20%">Užsakymo NR</th>
+					</tr>
+					<tr>
+						<td>
+							@Html.TextBoxFor(model => model.Amount, new { style = "width:100%", required = "required", placeholder = "Kiekis" })
+						</td>						
+                        <td>
+                            <select name="type" id="type">
+
+                                <option value=1 >Gryni</option>
+                                <option value=2 >Banko kortelė</option>
+                                <option value=3 >Pervedimas</option>
+                                <option value=0 disabled selected>Pasirinkite tipą</option>                      
+                            </select>
+                        </td>
+                        <td>
+							@Html.TextAreaFor(model => model.FkOrder, new { style = "min-width:100%; min-height:100%", required = "required", wrap = "hard", placeholder = "Įveskite užsakymo NR" })
+						</td>
+                        @if(ViewData["ErrorMSG"]!=null){
+                            <td>
+                                <a>@ViewData["ErrorMSG"]</a>
+                            </td>
+                        }
+					</tr>
+					<tr>
+						<th colspan=4></th>
+						<th>
+							<button type="submit" style='background-color:#00d4ff; color:black'>Pridėti</button>
+						</th>
+					</tr>
+				</table>
+				
+			</div>
+		</form>
+	</center>
+</body>
