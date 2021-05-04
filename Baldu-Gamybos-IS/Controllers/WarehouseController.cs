@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Baldu_Gamybos_IS.Models;
 using Baldu_Gamybos_IS.Models.ViewModel.WarehouseView;
+using Microsoft.AspNetCore.Authorization;
 
 namespace mvc_auth_test.Controllers
 {
@@ -73,7 +74,8 @@ namespace mvc_auth_test.Controllers
             _logger = logger;
             Context = context;
         }
-        
+
+        [Authorize]
         public IActionResult Warehouse()
         {
             var resource = Context.Resources.Select(r => new Resource(r)).ToList();
@@ -88,7 +90,7 @@ namespace mvc_auth_test.Controllers
             var warehouse = new WarehouseView(estResource, products);
             return View(warehouse);
         }
-
+        [Authorize]
         public ActionResult ChangeWarehouse(int id)
         {
             var resource = Context.Resources.Select(t => new Resource());
@@ -96,7 +98,7 @@ namespace mvc_auth_test.Controllers
             var res = Context.Resources.Where(c => c.Id == id).FirstOrDefault();
             return View(res);
         }
-
+        [Authorize]
         [HttpPost]
         public IActionResult ChangeValue(Resource resource){
             ViewData["error"] = 0;
@@ -159,7 +161,7 @@ namespace mvc_auth_test.Controllers
             foreach(var d in rt){
                 v.addDesc((double)d.Time, d.Amount);
             }
-            double left = (-v.LastY / (v.Y /v.X)) / day;
+            double left = Math.Round(-v.LastY / (v.Y /v.X) / day, 2);
             // Console.WriteLine("x:{0} y:{1} last:{2} slope(s):{3} left:{4}", v.X, v.Y, v.LastY, v.Y /v.X, left);
             // var data = Context.Resources.FromSqlRaw("SELECT t.* FROM (SELECT prt.initial_amount, pt.time FROM resource as r INNER JOIN product_resource as pr ON (r.id={0} AND r.id=pr.fk_resource) INNER JOIN product_resource_transaction as prt ON prt.fk_prod_res=pr.id INNER JOIN product_transaction as pt ON pt.id=prt.fk_prod_trans UNION SELECT rt2.initial_amount, rt2.time FROM resource as r2 INNER JOIN resource_transaction as rt2 ON (r2.id={1} AND r2.id=rt2.fk_resource)) as t ORDER BY t.time LIMIT 50", id, id).ToList();
             return left;
