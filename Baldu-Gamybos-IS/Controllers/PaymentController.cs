@@ -54,7 +54,7 @@ namespace mvc_auth_test.Controllers
                 };
                 
             }
-            if(making.Id==null){
+            if(making==null){
                 making=new Payment();
             }
             return this.View("NewPayment",making);
