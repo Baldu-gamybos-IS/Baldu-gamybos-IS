@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Baldu_Gamybos_IS.Models;
 using Baldu_Gamybos_IS.Models.ViewModel.WarehouseView;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 
 namespace mvc_auth_test.Controllers
 {
@@ -85,8 +86,7 @@ namespace mvc_auth_test.Controllers
                 EstResource er = new EstResource(res, est);
                 estResource.Add(er);
             }
-            var products = Context.Products.Select(p => new ProductView(p, Context.ProductTypes.Where(t => t.Id == p.Id).FirstOrDefault().Name)).ToList();
-            // Context.GenericOrders.Where(t => t.Id == p.Id).FirstOrDefault().Id)).ToList();
+            var products = Context.Products.Include(t => t.FkProductTypeNavigation).Select(p => new ProductView(p, p.FkProductTypeNavigation.Name)).ToList();
             var warehouse = new WarehouseView(estResource, products);
             return View(warehouse);
         }
