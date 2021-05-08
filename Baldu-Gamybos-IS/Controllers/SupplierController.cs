@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Baldu_Gamybos_IS.Models;
 using Baldu_Gamybos_IS.Models.ViewModel.WarehouseView;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace mvc_auth_test.Controllers
 {
@@ -21,7 +22,7 @@ namespace mvc_auth_test.Controllers
             _logger = logger;
             Context = context;
         }
-
+        [Authorize]
         public IActionResult Supplier()
         {
             if(TempData["Success"]!=null){
@@ -30,7 +31,7 @@ namespace mvc_auth_test.Controllers
             var suppliers = Context.Suppliers.Where(s => s.Remove == false).Select(s => new Supplier(s)).ToList();
             return View(suppliers);
         } 
-
+        [Authorize]
         public IActionResult RemoveSupplier(int id)
         {
             var supplier = Context.Suppliers.FirstOrDefault(s => s.Id == id);
@@ -40,12 +41,13 @@ namespace mvc_auth_test.Controllers
             TempData["Success"]="Tiekėjas pašalintas!";
             return RedirectToAction("Supplier");
         }   
+        [Authorize]
         public IActionResult EditSupplier(int id)
         {
             var supplier = Context.Suppliers.FirstOrDefault(s => s.Id == id);
             return View("SupplierManagementWindowEdit", supplier);
         }
-
+        [Authorize]
         public IActionResult ValidateInput(Supplier supplier)
         {
             if(supplier.Name == null)
@@ -62,13 +64,13 @@ namespace mvc_auth_test.Controllers
             ViewData["Success2"] = true;
             return  View("SupplierManagementWindowEdit", supplier);
         }
-
+        [Authorize]
         public IActionResult SupplierManagementWindowCreate()
         {
             var supplier = new Supplier();
             return View(supplier);
         }
-
+        [Authorize]
         [HttpPost]
         public IActionResult Create(Supplier supplier)
         {

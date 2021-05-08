@@ -29,30 +29,30 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="SignIn">Login</a>
                             </li> *@
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="Register">Register</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="Register">Registruotis</a>
                             </li>
                         }
                         @if(User.Identity.IsAuthenticated){
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Warehouse" asp-action="Warehouse">Warehouse</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Warehouse" asp-action="Warehouse">Sandėlis</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="Orders">Orders</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="Orders">Užsakymai</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="Order">Order</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="Order">Užsakymas</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Supplier" asp-action="Supplier">Supplier</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="Logout">Logout</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Supplier" asp-action="Supplier">Tiekėjai</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Distributor" asp-action="Distributors">Išvežiotojai</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Payment" asp-action="Payments">Mokėjimai</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="Logout">Atsijungti</a>
                             </li>
                         }
                     </ul>

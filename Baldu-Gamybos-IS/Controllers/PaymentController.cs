@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Baldu_Gamybos_IS.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace mvc_auth_test.Controllers
 {
@@ -17,7 +18,7 @@ namespace mvc_auth_test.Controllers
             _logger = logger;
             Context = context;
         }
-
+        [Authorize]
         public IActionResult Payments()
         {
             if(TempData["SuccessState"]!=null){
@@ -35,7 +36,7 @@ namespace mvc_auth_test.Controllers
              return View(payments);
         }
 
-        
+        [Authorize]
         public IActionResult NewPayment(Payment making) {
             if(TempData["SuccessState"]!=null){
                 switch(TempData["SuccessState"]){
@@ -59,6 +60,7 @@ namespace mvc_auth_test.Controllers
             }
             return this.View("NewPayment",making);
         }
+        [Authorize]
         public IActionResult CreatePayment(Payment newPay,int type) {
             //Validate perhaps
             if (this.Context.GenericOrders.Any(h=>h.Id==newPay.FkOrder)){

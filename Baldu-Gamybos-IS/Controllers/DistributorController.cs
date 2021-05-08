@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Baldu_Gamybos_IS.Models;
 using Microsoft.EntityFrameworkCore;
 using Baldu_Gamybos_IS.Models.ViewModel.DistributorView;
+using Microsoft.AspNetCore.Authorization;
 
 namespace mvc_auth_test.Controllers
 {
@@ -18,7 +19,7 @@ namespace mvc_auth_test.Controllers
             _logger = logger;
             Context = context;
         }
-
+        [Authorize]
         public IActionResult Distributors()
         {
             if(TempData["SuccessState"]!=null){
@@ -31,10 +32,11 @@ namespace mvc_auth_test.Controllers
             });
             return View(distributors);
         }
-
+        [Authorize]
         public IActionResult NewDistributor() {
             return this.View("NewDistributor",new Distributor());
         }
+        [Authorize]
         public IActionResult CreateDistributor(Distributor newDis) {
             //Validate perhaps
 
