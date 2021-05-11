@@ -1,7 +1,7 @@
 @model Baldu_Gamybos_IS.Models.Resource;
 
 @{
-    ViewData["Title"] = "ChangeWarehouse";
+    ViewData["Title"] = "ChangeWarehouseResource";
 }
 <!DOCTYPE html>
 <head>
@@ -26,7 +26,7 @@
 </head>
 <body>
     <center>
-        <form asp-controller="Warehouse" asp-action="ChangeValue" method="POST">
+        <form asp-controller="Warehouse" asp-action="ChangeValueResource" method="POST">
             <div class="container box" style="width:85%; margin-bottom:2%; height:15%; min-width:1000px;">
                 <table id="customers" style="width:95%;">
                     <tr style="background-color:white;">
@@ -42,7 +42,7 @@
                     <tr>
                         <th style="width:10%">žaliava</th>
                         <th style="width:40%">Kiekis</th>
-                        <th style="width:30%">Kaina</th>
+                        <th style="width:30%">Vieneto kaina</th>
                         <th style="width:5%;">Parinktys</th>
                     </tr>
                     <tr>
@@ -68,7 +68,7 @@
                                 <label></label>
                             }             
                         </td>
-                        <td>
+                        <td class='center'>
                             <button type="submit" name="Id" value=@Model.Id class='btn' style='background-color:#00d4ff; color:black'>Keisti</button>
                         </td>
                     </tr>

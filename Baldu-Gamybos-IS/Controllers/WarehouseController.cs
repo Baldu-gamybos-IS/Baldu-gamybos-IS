@@ -91,44 +91,90 @@ namespace mvc_auth_test.Controllers
             return View(warehouse);
         }
         [Authorize]
-        public ActionResult ChangeWarehouse(int id)
+        public ActionResult ChangeWarehouseResource(int id)
         {
-            var resource = Context.Resources.Select(t => new Resource());
             ViewData["error"] = 0;
             var res = Context.Resources.Where(c => c.Id == id).FirstOrDefault();
             return View(res);
         }
         [Authorize]
         [HttpPost]
-        public IActionResult ChangeValue(Resource resource){
+        public IActionResult ChangeValueResource(Resource resource){
             ViewData["error"] = 0;
 
             if(resource.LeftAmount == null)
             {
                 ViewData["error"] = 1;
-                return  View("ChangeWarehouse", resource);
+                return  View("ChangeWarehouseResource", resource);
             }else if(resource.LeftAmount == null){
                 ViewData["error"] = 2;
-                return  View("ChangeWarehouse", resource);
+                return  View("ChangeWarehouseResource", resource);
             }
 
             if(resource.LeftAmount < 0 && resource.UnitPrice < 0){
                 ViewData["error"] = 3;
-                return  View("ChangeWarehouse", resource);
+                return  View("ChangeWarehouseResource", resource);
             }  
             else if(resource.LeftAmount < 0){            
                 ViewData["error"] = 1;
-                return  View("ChangeWarehouse", resource);
+                return  View("ChangeWarehouseResource", resource);
             }
             else if (resource.UnitPrice < 0)
             {
                 ViewData["error"] = 2;
-                return  View("ChangeWarehouse", resource);
+                return  View("ChangeWarehouseResource", resource);
             }
             ViewData["Success2"] = true;
             Context.Resources.Update(resource);
             Context.SaveChanges(); 
-            return  View("ChangeWarehouse", resource);
+            return  View("ChangeWarehouseResource", resource);
+        }
+
+       [Authorize]
+        public ActionResult ChangeWarehouseProduct(int id)
+        {
+            ViewData["error"] = 0;
+            var product = Context.Products.Where(t => t.Id == id)
+                                          .Include(t => t.FkProductTypeNavigation)
+                                          .Select(p => new ProductView(p, p.FkProductTypeNavigation.Name))
+                                          .FirstOrDefault();
+            return View(product);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult ChangeValueProduct(ProductView product){
+            ViewData["error"] = 0;
+            if(product.Count == null)
+            {
+                ViewData["error"] = 1;
+                return  View("ChangeWarehouseProduct", product);
+            }else if(product.Count == null){
+                ViewData["error"] = 2;
+                return  View("ChangeWarehouseProduct", product);
+            }
+
+            if(product.Count < 0 && product.SinglePrice < 0){
+                ViewData["error"] = 3;
+                return  View("ChangeWarehouseProduct", product);
+            }  
+            else if(product.Count < 0){            
+                ViewData["error"] = 1;
+                return  View("ChangeWarehouseProduct", product);
+            }
+            else if (product.SinglePrice < 0)
+            {
+                ViewData["error"] = 2;
+                return  View("ChangeWarehouseProduct", product);
+            }
+            ViewData["Success2"] = true;
+            var prod = Context.Products.FirstOrDefault(p => p.Id == product.Id);
+            prod.Count = product.Count;
+            prod.SinglePrice = product.SinglePrice;
+            Context.Products.Update(prod);
+            Context.SaveChanges();
+
+            return  View("ChangeWarehouseProduct", product);
         }
         
         public static long ConvertDatetimeToUnixTimeStamp(DateTime date)

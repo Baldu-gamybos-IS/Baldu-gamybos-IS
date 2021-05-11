@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Baldu_Gamybos_IS.Models;
 
 #nullable disable
@@ -11,7 +12,12 @@ namespace Baldu_Gamybos_IS.Models.ViewModel.WarehouseView
     {
 
         public int Id { get; set; }
+        [Required]
+        [Range(0, float.MaxValue, ErrorMessage = "Neigiama kaina negalima!!!")]
         public float? SinglePrice { get; set; }
+        
+        [Required]
+        [Range(0, float.MaxValue, ErrorMessage = "Neigiamas kiekis negalimas!!!")]
         public int? Count { get; set; }
         public string Type { get; set; }
         public int? OrderId { get; set; }
@@ -24,6 +30,10 @@ namespace Baldu_Gamybos_IS.Models.ViewModel.WarehouseView
             Type = product.Type;
             OrderId = product.FkOrder;
             ProductName = name;
+        }
+        public ProductView()
+        {
+            
         }
     }
 }

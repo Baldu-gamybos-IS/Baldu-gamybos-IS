@@ -1,0 +1,95 @@
+@model Baldu_Gamybos_IS.Models.ViewModel.WarehouseView.ProductView;
+
+@{
+    ViewData["Title"] = "ChangeWarehouseProduct";
+}
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="~/css/warehouse.css"/>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .center {
+            text-align:center;
+        }
+
+        #customers .wire {
+            text-align: left; 
+            position:relative; 
+            right:9px;  
+            border:0px
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <form asp-controller="Warehouse" asp-action="ChangeValueProduct" method="POST">
+            <div class="container box" style="width:85%; margin-bottom:2%; height:15%; min-width:1000px;">
+                <table id="customers" style="width:95%;">
+                    <tr style="background-color:white;">
+                        <td colspan="4"  class="wire boxall" style="left:0px; width:95%">
+                            <h4>
+                                <b class="bold ">Keisti sandėlio turinį:</b>
+                            </h4>
+                        </td>
+                        <br/>
+                        <br/>
+                    </tr>
+                    <tr style="height: 40px;"></tr>
+                    <tr>
+                        <th style="width:10%">žaliava</th>
+                        <th style="width:40%">Kiekis</th>
+                        <th style="width:30%">Vieneto kaina</th>
+                        <th style="width:5%;">Parinktys</th>
+                    </tr>
+                    <tr>
+                        <td class='center'>
+                            <label>@Model.Id</label>
+                            @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @type="hidden", @value=@Model.Id } })
+                        </td>
+                        <td class='center'>
+                            @Html.EditorFor(model => model.Count, new { htmlAttributes = new { @class = "txt", @type="number", @min=1, @step=1, style="text-align: center;",  @placeholder = "Kiekis", @value=0 } })
+                            <br/>
+                            @Html.ValidationMessageFor(model => model.Count, "", new { @class = "text-danger validation" })
+                            @if ((int)ViewData["error"] == 2)
+                            {
+                                <label></label>
+                            }
+                        </td>
+                        <td class='center'>
+                            @Html.EditorFor(model => model.SinglePrice, new { htmlAttributes = new { @class = "txt", @type="text", style="text-align: center;",  @placeholder = "Vieneto kaina", @value=0 } })
+                            <br/>   
+                            @Html.ValidationMessageFor(model => model.SinglePrice, "", new { @class = "text-danger validation" })     
+                            @if ((int)ViewData["error"] == 1)
+                            {
+                                <label></label>
+                            }             
+                        </td>
+                        <td class='center'>
+                            <button type="submit" name="Id" value=@Model.Id class='btn' style='background-color:#00d4ff; color:black'>Keisti</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th colspan="5"> &#160;</th>
+                    </tr>
+                </table>
+                <br/>
+                @if (ViewData["Success2"] != null)
+                {
+                    <div id="div-1">
+                        <label class="pull-center" style="color:#42b947; font-size:30px;">Pakeitimai išsaugoti!!!<br/></label>
+                    </div>
+                    <script type="text/javascript">
+                        setTimeout(() => {
+                            const elem = document.getElementById("div-1");
+                            elem.parentNode.removeChild(elem);
+                        }, 3000);
+                    </script>
+                }
+            </div>
+        </form>
+    </center>
+</body>
