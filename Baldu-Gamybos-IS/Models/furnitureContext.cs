@@ -159,14 +159,12 @@ namespace Baldu_Gamybos_IS.Models
                     .HasCollation("utf8mb4_general_ci");
 
                 entity.Property(e => e.Email)
-                    .IsRequired()
                     .HasColumnType("varchar(255)")
                     .HasColumnName("email")
                     .HasCharSet("utf8mb4")
                     .HasCollation("utf8mb4_general_ci");
 
                 entity.Property(e => e.Phone)
-                    .IsRequired()
                     .HasColumnType("varchar(255)")
                     .HasColumnName("phone")
                     .HasCharSet("utf8mb4")

@@ -59,20 +59,20 @@
                     <td colspan="4" class="wire">
                         <a id="nj" href="NewDistributor" class="btn button" name="submit">Naujas išvežiotojas</a>
                     </td>
-                    
-
                 </tr>
                 <tr >
-                    <th style="width:10%">NR</th>
-                    <th style="width:40%">Pavadinimas</th>
-                    
+                    <th style="width:5%" class='center'>NR</th>
+                    <th style="width:30%" class='center'>Pavadinimas</th>
+                    <th style="width:35%" class='center'>Email</th>
+                    <th style="width:30%" class='center'>Telefonas</th>
                 </tr>
                 @foreach (var item in Model) {
                     
                     <tr>
-                        <td class='center'>@item.Id</td>
-                        <td class='center'>@item.Name</td>
-						
+                        <td style="width:5%" class='center'>@item.Id</td>
+                        <td style="width:30%" class='center'>@item.Name</td>
+						<td style="width:35%" class='center'>@(item.Email==null?" ":item.Email)</td>
+                        <td style="width:30%" class='center'>@(item.Phone==null?" ":item.Phone)</td>
                         
                     </tr>
                     
