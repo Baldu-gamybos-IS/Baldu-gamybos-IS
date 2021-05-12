@@ -42,10 +42,13 @@ namespace mvc_auth_test.Controllers
         [Authorize]
         public IActionResult CreateDistributor(Distributor newDis) {
             //Validate perhaps
-            Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
-            Match match = regex.Match(newDis.Email);
-            if(!match.Success){
-                newDis.Email=null;
+            if(newDis.Email!=null){
+                Regex regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+
+                Match match = regex.Match(newDis.Email);
+                if(!match.Success){
+                    newDis.Email=null;
+                }
             }
             if(newDis.Email==null && newDis.Phone==null){
                 ViewData["SuccessState"]=1;
