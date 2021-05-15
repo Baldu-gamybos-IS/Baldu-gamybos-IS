@@ -55,11 +55,8 @@
                         <td>
 							@Html.TextAreaFor(model => model.FkOrder, new { style = "min-width:100%; min-height:100%", required = "required", wrap = "hard", placeholder = "Įveskite užsakymo NR" })
 						</td>
-                        @if(ViewData["ErrorMSG"]!=null){
-                            <td>
-                                <a>@ViewData["ErrorMSG"]</a>
-                            </td>
-                        }
+                        
+                            
 					</tr>
 					<tr>
 						<th colspan=4></th>
@@ -68,7 +65,17 @@
 						</th>
 					</tr>
 				</table>
-				
+				@if(ViewData["ErrorMSG"]!=null){
+				<div id="div-1">
+					<label class="pull-center" style="color:red; font-size:30px;">@ViewData["ErrorMSG"]<br/></label>
+					</div>
+					<script type="text/javascript">
+						setTimeout(() => {
+							const elem = document.getElementById("div-1");
+							elem.parentNode.removeChild(elem);
+						}, 3000);
+				</script>
+				}
 			</div>
 		</form>
 	</center>
