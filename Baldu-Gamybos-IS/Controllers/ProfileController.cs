@@ -75,7 +75,7 @@ namespace mvc_auth_test.Controllers
         } 
 
         [HttpPost("login")]
-        public async Task<IActionResult> LoginValidate(string username, string password)
+        public async Task<IActionResult> ValidateData(string username, string password)
         {
             string hash = Sha256(password);
             IQueryable<Baldu_Gamybos_IS.Models.Profile> profiles = Context.Profiles.Where(s => s.Username == username);
