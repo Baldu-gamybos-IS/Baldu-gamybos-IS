@@ -23,16 +23,8 @@ namespace Baldu_Gamybos_IS.Controllers
 
         public IActionResult Index()
         {
-            // Role role = Context.Roles.Where(s => s.Id == 3).FirstOrDefault();
             return Redirect("login");
-            // return View(role);
         }
-
-        // public IActionResult Privacy()
-        // {
-        //     return View();
-        // }
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

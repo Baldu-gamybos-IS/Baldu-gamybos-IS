@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace mvc_auth_test.Controllers
 {
+    [Authorize(Roles = "vadybininkas")]
     public class PaymentController : Controller
     {
         private readonly ILogger<PaymentController> _logger;

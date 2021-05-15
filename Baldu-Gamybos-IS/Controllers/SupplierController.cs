@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace mvc_auth_test.Controllers
 {
+    [Authorize(Roles = "vadybininkas")]
     public class SupplierController : Controller
     {
         private readonly ILogger<WarehouseController> _logger;

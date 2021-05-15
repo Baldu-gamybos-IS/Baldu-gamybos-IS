@@ -81,7 +81,9 @@
                 <tr style="height: 40px;"></tr>
                 <tr style="background-color:white;">
                     <td colspan="4" class="wire">
-                        <a id="nj" href="Order" class="btn button" name="submit">Naujas užsakymas</a>
+                        @if(User.Identity.IsAuthenticated && (User.IsInRole("vadybininkas") || User.IsInRole("pirkėjas"))){
+                            <a id="nj" href="Order" class="btn button" name="submit">Naujas užsakymas</a>
+                        }
                     </td>
                     <td class="wire" style="text-align: right;">
                         <b><label>Rodyti:</label></b>

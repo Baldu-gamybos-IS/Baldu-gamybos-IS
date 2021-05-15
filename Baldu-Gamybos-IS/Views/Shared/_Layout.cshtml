@@ -25,32 +25,41 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
 					<ul class="navbar-nav flex-grow-1">
                         @if(!User.Identity.IsAuthenticated){
-                            @* <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="SignIn">Login</a>
-                            </li> *@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="Register">Registruotis</a>
                             </li>
                         }
-                        @if(User.Identity.IsAuthenticated){
+                        @if(User.Identity.IsAuthenticated && (User.IsInRole("darbuotojas") || User.IsInRole("vadybininkas"))){
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Warehouse" asp-action="Warehouse">Sandėlis</a>
                             </li>
+                        }
+                        @if(User.Identity.IsAuthenticated && (User.IsInRole("darbuotojas") || User.IsInRole("vadybininkas") || User.IsInRole("pirkėjas"))){
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="Orders">Užsakymai</a>
                             </li>
+                        }
+                        @if(User.Identity.IsAuthenticated && (User.IsInRole("vadybininkas") || User.IsInRole("pirkėjas"))){
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="Order">Užsakymas</a>
                             </li>
+                        }
+                        @if(User.Identity.IsAuthenticated && (User.IsInRole("vadybininkas"))){
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Supplier" asp-action="Supplier">Tiekėjai</a>
                             </li>
+                        }
+                        @if(User.Identity.IsAuthenticated && (User.IsInRole("vadybininkas"))){
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Distributor" asp-action="Distributors">Išvežiotojai</a>
                             </li>
+                        }
+                        @if(User.Identity.IsAuthenticated && (User.IsInRole("vadybininkas"))){
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Payment" asp-action="Payments">Mokėjimai</a>
                             </li>
+                        }
+                        @if(User.Identity.IsAuthenticated && (User.IsInRole("darbuotojas") || User.IsInRole("vadybininkas") || User.IsInRole("pirkėjas"))){
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="Logout">Atsijungti</a>
                             </li>

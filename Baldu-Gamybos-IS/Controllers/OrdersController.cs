@@ -19,7 +19,7 @@ namespace mvc_auth_test.Controllers
             _logger = logger;
             Context = context;
         }
-        [Authorize]
+        [Authorize(Roles = "darbuotojas,pirkėjas,vadybininkas")]
         public IActionResult Orders()
         {
             if(TempData["SuccessState"]!=null){
@@ -46,7 +46,7 @@ namespace mvc_auth_test.Controllers
             });
             return View(orders);
         }
-        [Authorize]
+        [Authorize(Roles = "darbuotojas,pirkėjas,vadybininkas")]
         public IActionResult ShowOrder(int id){
             var checking=Context.GenericOrders.Include(h=> h.OrderResources).
             ThenInclude(g=>g.FkResourceNavigation).
@@ -78,7 +78,7 @@ namespace mvc_auth_test.Controllers
             var ourOrder=checking.Where(r => r.Id==id).Single();
             return View(ourOrder);
         }
-        [Authorize]
+        [Authorize(Roles = "darbuotojas,pirkėjas,vadybininkas")]
         public IActionResult OrderState(int id){
             var checking=Context.GenericOrders.Include(h=> h.OrderResources).
             ThenInclude(g=>g.FkResourceNavigation).
@@ -103,14 +103,12 @@ namespace mvc_auth_test.Controllers
                 FkSupplierNavigation=r.FkSupplierNavigation,
                 Products=r.Products,
                 OrderResources=r.OrderResources,
-                
-
             });
            
             var ourOrder=checking.Where(r => r.Id==id).Single();
             return View(ourOrder);
         }
-        [Authorize]
+        [Authorize(Roles = "darbuotojas,pirkėjas,vadybininkas")]
         public IActionResult ChangeState(int id,int state){
             var obj=Context.GenericOrders.Where(r=>r.Id==id).Single();
             obj.FkStatus=state;
@@ -120,11 +118,11 @@ namespace mvc_auth_test.Controllers
             Context.SaveChanges();
             return RedirectToAction("Orders","Orders");
         }
-        [Authorize]
+        [Authorize(Roles = "pirkėjas,vadybininkas")]
         public IActionResult Order() {
             return this.View("Order", new OrderView());
         }
-        [Authorize]
+        [Authorize(Roles = "pirkėjas,vadybininkas")]
         [HttpPost]
         public IActionResult CreateOrder(OrderView view) {
             view.Order.Direction = false;

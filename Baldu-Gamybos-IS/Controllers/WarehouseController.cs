@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace mvc_auth_test.Controllers
 {
+    [Authorize(Roles = "darbuotojas,vadybininkas")]
     public class WarehouseController : Controller
     {
 

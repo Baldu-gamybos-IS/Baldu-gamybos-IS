@@ -70,25 +70,21 @@ namespace mvc_auth_test.Controllers
   
         [HttpGet("login")]
         public ActionResult Login()
-        // public ActionResult Login(string returnUrl)
         {
-            // ViewData["ReturnUrl"] = returnUrl;
             return View();
         } 
 
         [HttpPost("login")]
-        // public async Task<IActionResult> LoginValidate(string username, string password, string returnUrl)
         public async Task<IActionResult> LoginValidate(string username, string password)
         {
-            // ViewData["ReturnUrl"] = returnUrl;
-            
             string hash = Sha256(password);
             IQueryable<Baldu_Gamybos_IS.Models.Profile> profiles = Context.Profiles.Where(s => s.Username == username);
             if(profiles.Count() > 0 && profiles.First() != null && profiles.First().Password == hash){
-                Console.WriteLine("logged in");
+                var role = Context.Roles.Where(s => s.Id==profiles.First().FkRole).First();
                 var claims = new List<Claim>();
                 claims.Add(new Claim("username", username));
                 claims.Add(new Claim(ClaimTypes.NameIdentifier, username));
+                claims.Add(new Claim(ClaimTypes.Role, role != null ? role.Name : "pirkėjas"));
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
                 await HttpContext.SignInAsync(claimsPrincipal);
@@ -182,7 +178,7 @@ namespace mvc_auth_test.Controllers
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
             await HttpContext.SignInAsync(claimsPrincipal);
-            return Redirect("Profile/SignIn");
+            return Redirect("login");
         }
 
 
