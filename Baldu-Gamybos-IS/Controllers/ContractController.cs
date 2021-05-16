@@ -32,10 +32,10 @@ namespace mvc_auth_test.Controllers {
 		[Authorize(Roles = "vadybininkas")]
 		[HttpPost]
 		public IActionResult CreateContract(ContractView view) {
-			view.contract.InitDate = DateTime.UtcNow;
-			view.contract.FkProfile = Int32.Parse(view.Profile);
+			view.Contract.InitDate = DateTime.UtcNow;
+			if(view.Profile != null) view.Contract.FkProfile = Int32.Parse(view.Profile);
 
-			this.Context.Contracts.Add(view.contract);
+			this.Context.Contracts.Add(view.Contract);
 			this.Context.SaveChanges();
 			this.TempData["Success"] = true;
 			return this.RedirectToAction("Contracts", "Contract");

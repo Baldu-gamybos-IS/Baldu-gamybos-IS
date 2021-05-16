@@ -45,22 +45,22 @@
 					</tr>
 					<tr>
 						<td>
-							@Html.TextBoxFor(model => model.contract.Name, new { style = "width:100%", required = "required", placeholder = "Pavadinimas" })
+							@Html.TextBoxFor(model => model.Contract.Name, new { style = "width:100%", required = "required", placeholder = "Pavadinimas" })
 						</td>
 						<td>
-							@Html.TextBoxFor(model => model.contract.Number, new { style = "width:100%", required = "required", placeholder = "Numeris" })
+							@Html.TextBoxFor(model => model.Contract.Number, new { style = "width:100%", required = "required", placeholder = "Numeris" })
 						</td>
 						<td>
-							@Html.TextBoxFor(model => model.contract.StartDate, new { style = "width:100%", type = "date", required = "required" })
+							@Html.TextBoxFor(model => model.Contract.StartDate, "{0:d}", new { style = "width:100%", type = "date", required = "required" })
 						</td>
 						<td>
-							@Html.TextBoxFor(model => model.contract.EndDate, new { style = "width:100%", type = "date", required = "required" })
+							@Html.TextBoxFor(model => model.Contract.EndDate, "{0:d}", new { style = "width:100%", type = "date", required = "required" })
 						</td>
 						<td>
 							@Html.TextBoxFor(model => model.ContractType, new { style = "width:100%", required = "required", placeholder = "Sutarties tipas" })
 						</td>
 						<td>
-							@Html.DropDownListFor(model => model.Profile, Model.profiles.Select(p => new SelectListItem(new String((p.FirstName + " " + p.LastName).Take(15).ToArray()), p.Id.ToString())))
+							@Html.DropDownListFor(model => model.Profile, Model.Profiles.Select(p => new SelectListItem(new String((p.FirstName + " " + p.LastName).Take(15).ToArray()), p.Id.ToString())))
 						</td>
 						<td>
 							@Html.TextBoxFor(model => model.Files, new { style = "width:100%", type = "file", multiple = "multiple" })
