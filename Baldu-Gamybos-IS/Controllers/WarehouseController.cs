@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
@@ -214,5 +214,19 @@ namespace mvc_auth_test.Controllers
             return left;
         }
 
+        [Authorize(Roles = "vadybininkas")]
+        public IActionResult NewResource() {
+            return this.View("NewResource", new Resource());
+        }
+
+        [Authorize(Roles = "vadybininkas")]
+        [HttpPost]
+        public IActionResult CreateResource(Resource resource) {
+            this.TempData["SuccessfullyCreatedResource"] = true;
+
+            this.Context.Resources.Add(resource);
+            this.Context.SaveChanges();
+            return this.RedirectToAction("Warehouse", "Warehouse");
+        }
     }
 }

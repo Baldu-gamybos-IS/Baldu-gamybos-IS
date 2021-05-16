@@ -1,3 +1,63 @@
-﻿@{
-	ViewData["Title"] = "Register resource";
+﻿@model Baldu_Gamybos_IS.Models.Resource;
+@{
+	ViewData["Title"] = "NewResource";
 }
+
+<!DOCTYPE html>
+<head>
+	<link rel="stylesheet" href="~/css/warehouse.css" />
+	<style>
+		body {
+			margin: 0;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		.center {
+			text-align: center;
+		}
+
+		#customers .wire {
+			text-align: left;
+			position: relative;
+			right: 9px;
+			border: 0px
+		}
+	</style>
+</head>
+<body>
+	<center>
+		<div class="container box" style="width:95%; margin-bottom:2%; height:15%">
+			<div colspan="6" class="wire boxall" style="left:0px; width:95%">
+				<h4>
+					<b class="bold">Suveskite resurso duomenis:</b>
+				</h4>
+			</div>
+			<form asp-controller="Warehouse" asp-action="CreateResource" method="POST">
+				<table id="customers" style="width:95%;">
+					<tr>
+						<th style="width:40%">Žaliava</th>
+						<th style="width:30%">Kiekis</th>
+						<th style="width:30%">Vieneto kaina</th>
+					</tr>
+					<tr>
+						<td>
+							@Html.TextBoxFor(model => model.Name, new { style = "width:100%", required = "required", placeholder = "Žaliava" })
+						</td>
+						<td>
+							@Html.TextBoxFor(model => model.LeftAmount, new { style = "width:100%", type = "number", min = 0, step = 0.01, required = "required", placeholder = "Kiekis" })
+						</td>
+						<td>
+							@Html.TextBoxFor(model => model.UnitPrice, new { style = "width:100%", type = "number", min = 0, step = 0.01, required = "required", placeholder = "Vieneto kaina" })
+						</td>
+					</tr>
+					<tr>
+						<th colspan=2></th>
+						<th>
+							<button type="submit" style='background-color:#00d4ff; color:black'>Sukurti</button>
+						</th>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</center>
+</body>

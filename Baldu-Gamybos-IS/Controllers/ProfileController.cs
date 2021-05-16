@@ -79,7 +79,7 @@ namespace mvc_auth_test.Controllers
         {
             string hash = Sha256(password);
             IQueryable<Baldu_Gamybos_IS.Models.Profile> profiles = Context.Profiles.Where(s => s.Username == username);
-            if(profiles.Count() > 0 && profiles.First() != null && profiles.First().Password == hash){
+            if(profiles.Any() && profiles.First() != null && profiles.First().Password == hash){
                 var role = Context.Roles.Where(s => s.Id==profiles.First().FkRole).First();
                 var claims = new List<Claim>();
                 claims.Add(new Claim("username", username));

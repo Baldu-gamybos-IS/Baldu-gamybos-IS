@@ -64,6 +64,11 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="Logout">Atsijungti</a>
                             </li>
                         }
+                        @if (User.Identity.IsAuthenticated && (User.IsInRole("vadybininkas"))){
+                        <li class="nav-item">
+							<a class="nav-link text-dark" asp-area="" asp-controller="Warehouse" asp-action="NewResource">Žaliava</a>
+                        </li>
+						}
                     </ul>
                 </div>
             </div>

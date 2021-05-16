@@ -80,11 +80,19 @@
                     <br/>
                     <br/>
                 </tr>
+                @if (ViewData["SuccessfullyCreatedOrder"] != null) {
+					<div id="div-1">
+						<label class="pull-center" style="color:brown;font-size:30px;">Resursas sėkmingai sukurtas<br/></label>
+					</div>
+					<script type="text/javascript">
+						setTimeout(() => {
+							const elem = document.getElementById("div-1");
+							elem.parentNode.removeChild(elem);
+						}, 30000);
+					</script>
+				}
                 <tr style="height: 40px;"></tr>
                 <tr style="background-color:white;">
-                    <td colspan="4" class="wire">
-                        <a id="nj" href="naujasŽaliava" class="btn button" name="submit">Nauja žaliava</a>
-                    </td>
                     <td class="wire" style="text-align: right;">
                         <b><label>Rodyti:</label></b>
                     </td>
