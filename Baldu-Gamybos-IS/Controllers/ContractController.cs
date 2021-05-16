@@ -4,6 +4,8 @@ using Baldu_Gamybos_IS.Models;
 using Microsoft.AspNetCore.Authorization;
 using Baldu_Gamybos_IS.Models.ViewModel.ContractView;
 using System;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace mvc_auth_test.Controllers {
 	[Authorize(Roles = "vadybininkas")]
@@ -21,7 +23,7 @@ namespace mvc_auth_test.Controllers {
 			if (this.TempData["Success"] != null) {
 				this.ViewData["Success"] = true;
 			}
-			return this.View("Contracts", this.Context.Contracts);
+			return this.View("Contracts", this.Context.Contracts.Include(p => p.FkProfileNavigation).Include(p => p.FkContractTypeNavigation));
 		}
 
 		[Authorize(Roles = "vadybininkas")]
@@ -33,7 +35,15 @@ namespace mvc_auth_test.Controllers {
 		[HttpPost]
 		public IActionResult CreateContract(ContractView view) {
 			view.Contract.InitDate = DateTime.UtcNow;
-			if(view.Profile != null) view.Contract.FkProfile = Int32.Parse(view.Profile);
+			view.Contract.FkProfile = Int32.Parse(view.Profile);
+
+			ContractType type = this.Context.ContractTypes.FirstOrDefault(t => t.Name == view.ContractType);
+			if (type == null) {
+				this.Context.ContractTypes.Add(new ContractType{ Name = view.ContractType });
+				this.Context.SaveChanges();
+				view.Contract.FkContractType = this.Context.ContractTypes.Single(t => t.Name == view.ContractType).Id;
+			} else view.Contract.FkContractType = type.Id;
+			
 
 			this.Context.Contracts.Add(view.Contract);
 			this.Context.SaveChanges();
