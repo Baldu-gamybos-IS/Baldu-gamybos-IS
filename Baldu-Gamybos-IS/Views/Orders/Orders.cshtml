@@ -1,52 +1,48 @@
 @model IEnumerable<Baldu_Gamybos_IS.Models.GenericOrder>;
-
 @{
-    ViewData["Title"] = "Orders";
+	ViewData["Title"] = "Orders";
 }
-
-
-
 
 <!DOCTYPE html>
 <head>
-        <link rel="stylesheet" href="~/css/warehouse.css"/>
-        <style>
-            body {
-                margin: 0;
-                font-family: Arial, Helvetica, sans-serif;
-            }
+	<link rel="stylesheet" href="~/css/warehouse.css" />
+	<style>
+		body {
+			margin: 0;
+			font-family: Arial, Helvetica, sans-serif;
+		}
 
-            .center {
-                text-align:center;
-            }
+		.center {
+			text-align: center;
+		}
 
-            #customers .wire {
-                text-align: left; 
-                position:relative; 
-                right:9px;  
-                border:0px
-            }
-    </style>
+		#customers .wire {
+			text-align: left;
+			position: relative;
+			right: 9px;
+			border: 0px
+		}
+	</style>
 
-    <script>
-        function sub(value) {
-            showall();
-            var valuerdy="."+value;
-            document.querySelectorAll(valuerdy).forEach(x=>x.style.visibility="collapse");
+	<script>
+		function sub(value) {
+			showall();
+			var valuerdy = "." + value;
+			document.querySelectorAll(valuerdy).forEach(x => x.style.visibility = "collapse");
 
-            console.log("sub"+valuerdy);
-        }
+			console.log("sub" + valuerdy);
+		}
 
-        function showall(){         
-            document.querySelectorAll(".direction1").forEach(x=>x.style.visibility="visible");
-            document.querySelectorAll(".direction2").forEach(x=>x.style.visibility="visible");
-        }
-    </script>
+		function showall() {
+			document.querySelectorAll(".direction1").forEach(x => x.style.visibility = "visible");
+			document.querySelectorAll(".direction2").forEach(x => x.style.visibility = "visible");
+		}
+	</script>
 </head>
 <body>
-    <center>
-        <div class="container box" style="width:85%; margin-bottom:2%; height:15%; min-width:700px;">
-            <table id="customers" style="width:95%;">
+	<center>
+		<div class="container box" style="width:85%; margin-bottom:2%; height:15%; min-width:700px;">
+			<table id="customers" style="width:95%;">
 				<tr style="background-color:white;">
 					<td colspan="6" class="wire boxall" style="left:0px; width:95%">
 						<h4>
@@ -78,54 +74,49 @@
 					<br />
 					<br />
 				</tr>
-                <tr style="height: 40px;"></tr>
-                <tr style="background-color:white;">
-                    <td colspan="4" class="wire">
-                        @if(User.Identity.IsAuthenticated && (User.IsInRole("vadybininkas") || User.IsInRole("pirkėjas"))){
-                            <a id="nj" href="Order" class="btn button" name="submit">Naujas užsakymas</a>
-                        }
-                    </td>
-                    <td class="wire" style="text-align: right;">
-                        <b><label>Rodyti:</label></b>
-                    </td>
-                    <td class="wire">     
-                        <select class="center btn" style="background-color: white;" name="filter" onchange="sub(this.value)">
-                            <option>Visi</option>
-                            <option value="direction2">Mums</option>
-                            <option value="direction1">Klientams</option>
-                        </select>
-                    </td>
-
-                </tr>
-                <tr >
-                    <th style="width:10%">NR</th>
-                    <th style="width:20%">Būsena</th>
-                    <th style="width:20%">Kaina</th>
-                    <th style="width:20%">Sumokėta</th>
-                    <th style="width:10%">Kryptis</th>
-                    <th style="width:10%">Parinktys</th>
-                </tr>
-                @foreach (var item in Model) {
-                    
-                    <tr class="@(item.Direction == null ? null : ((bool)item.Direction ? "direction1" : "direction2"))">
-                        <td class='center'>@item.Id</td>
-                        <td class='center'>@item.FkStatusNavigation?.Name</td>
+				<tr style="height: 40px;"></tr>
+				<tr style="background-color:white;">
+					<td colspan="4" class="wire">
+						@if (User.Identity.IsAuthenticated && (User.IsInRole("vadybininkas") || User.IsInRole("pirkėjas"))) {
+							<a id="nj" href="Order" class="btn button" name="submit">Naujas užsakymas</a>
+						}
+					</td>
+					<td class="wire" style="text-align: right;">
+						<b><label>Rodyti:</label></b>
+					</td>
+					<td class="wire">
+						<select class="center btn" style="background-color: white;" name="filter" onchange="sub(this.value)">
+							<option>Visi</option>
+							<option value="direction2">Mums</option>
+							<option value="direction1">Klientams</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th style="width:10%">NR</th>
+					<th style="width:20%">Būsena</th>
+					<th style="width:20%">Kaina</th>
+					<th style="width:20%">Sumokėta</th>
+					<th style="width:10%">Kryptis</th>
+					<th style="width:10%">Parinktys</th>
+				</tr>
+				@foreach (var item in Model) {
+					<tr class="@(item.Direction == null ? null : ((bool)item.Direction ? "direction1" : "direction2"))">
+						<td class='center'>@item.Id</td>
+						<td class='center'>@item.FkStatusNavigation?.Name</td>
 						<td class='center'>@(item.Price == null ? "nenustatyta" : item.Price)</td>
-                        <td class='center'>@item.PayedAmount</td>
-                        <td class='center'>@(item.Direction == null ? null : ((bool)item.Direction ? "Mums" : "Klientui"))</td>
-
-                        <td>
-                            <a href='./ShowOrder?id=@item.Id' class='btn' style='background-color:#00d4ff; color:black'>Peržiūrėti</a>
-                        </td>
-                    </tr>
-                    
-                }
-                <tr>
-                    <th colspan="6"> &#160;</th>
-                </tr>
-            </table>
-            
-            <br>
-        </div>
-    </center>
+						<td class='center'>@item.PayedAmount</td>
+						<td class='center'>@(item.Direction == null ? null : ((bool)item.Direction ? "Mums" : "Klientui"))</td>
+						<td>
+							<a href='./ShowOrder?id=@item.Id' class='btn' style='background-color:#00d4ff; color:black'>Peržiūrėti</a>
+						</td>
+					</tr>
+				}
+				<tr>
+					<th colspan="6"> &#160;</th>
+				</tr>
+			</table>
+			<br>
+		</div>
+	</center>
 </body>

@@ -1,98 +1,103 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Baldu_Gamybos_IS</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>@ViewData["Title"] - Baldu_Gamybos_IS</title>
+	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                @if(!User.Identity.IsAuthenticated){
-                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Baldu_Gamybos_IS</a>
-                }
-                @if(User.Identity.IsAuthenticated){
-                    <a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="SignIn">Baldu_Gamybos_IS</a>
-                }
+	<header>
+		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+			<div class="container">
+				@if (!User.Identity.IsAuthenticated) {
+					<a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Baldu_Gamybos_IS</a>
+				}
+				@if (User.Identity.IsAuthenticated) {
+					<a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="SignIn">Baldu_Gamybos_IS</a>
+				}
 
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+						aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
 					<ul class="navbar-nav flex-grow-1">
-                        @if(!User.Identity.IsAuthenticated){
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="Register">Registruotis</a>
-                            </li>
-                        }
-                        @if(User.Identity.IsAuthenticated && (User.IsInRole("darbuotojas") || User.IsInRole("vadybininkas"))){
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Warehouse" asp-action="Warehouse">Sandėlis</a>
-                            </li>
-                        }
-                        @if(User.Identity.IsAuthenticated && (User.IsInRole("darbuotojas") || User.IsInRole("vadybininkas") || User.IsInRole("pirkėjas"))){
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="Orders">Užsakymai</a>
-                            </li>
-                        }
-                        @if(User.Identity.IsAuthenticated && (User.IsInRole("vadybininkas") || User.IsInRole("pirkėjas"))){
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="Order">Užsakymas</a>
-                            </li>
-                        }
-                        @if(User.Identity.IsAuthenticated && (User.IsInRole("vadybininkas"))){
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Supplier" asp-action="Supplier">Tiekėjai</a>
-                            </li>
-                        }
-                        @if(User.Identity.IsAuthenticated && (User.IsInRole("vadybininkas"))){
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Distributor" asp-action="Distributors">Išvežiotojai</a>
-                            </li>
-                        }
-                        @if(User.Identity.IsAuthenticated && (User.IsInRole("vadybininkas"))){
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Payment" asp-action="Payments">Mokėjimai</a>
-                            </li>
-                        }
-                        @if (User.Identity.IsAuthenticated && (User.IsInRole("vadybininkas"))){
-                            <li class="nav-item">
-							    <a class="nav-link text-dark" asp-area="" asp-controller="Warehouse" asp-action="NewResource">Žaliava</a>
-                            </li>
+						@if (!User.Identity.IsAuthenticated) {
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="Register">Registruotis</a>
+							</li>
 						}
-                        @if (User.Identity.IsAuthenticated && (User.IsInRole("vadybininkas"))){
-                            <li class="nav-item">
-							    <a class="nav-link text-dark" asp-area="" asp-controller="Contract" asp-action="Contracts">Sutartys</a>
-                            </li>
+						@if (User.Identity.IsAuthenticated && (User.IsInRole("darbuotojas") || User.IsInRole("vadybininkas"))) {
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Warehouse" asp-action="Warehouse">Sandėlis</a>
+							</li>
 						}
-                        @if(User.Identity.IsAuthenticated && (User.IsInRole("darbuotojas") || User.IsInRole("vadybininkas") || User.IsInRole("pirkėjas"))){
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="Logout">Atsijungti</a>
-                            </li>
-                        }
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+						@if (User.Identity.IsAuthenticated && (User.IsInRole("darbuotojas") || User.IsInRole("vadybininkas") || User.IsInRole("pirkėjas"))) {
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="Orders">Užsakymai</a>
+							</li>
+						}
+						@if (User.Identity.IsAuthenticated && (User.IsInRole("vadybininkas") || User.IsInRole("pirkėjas"))) {
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="Order">Užsakymas</a>
+							</li>
+						}
+						@if (User.Identity.IsAuthenticated && (User.IsInRole("vadybininkas"))) {
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Supplier" asp-action="Supplier">Tiekėjai</a>
+							</li>
+						}
+						@if (User.Identity.IsAuthenticated && (User.IsInRole("vadybininkas"))) {
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Distributor" asp-action="Distributors">Išvežiotojai</a>
+							</li>
+						}
+						@if (User.Identity.IsAuthenticated && (User.IsInRole("vadybininkas"))) {
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Payment" asp-action="Payments">Mokėjimai</a>
+							</li>
+						}
+						@if (User.Identity.IsAuthenticated && (User.IsInRole("vadybininkas"))) {
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Warehouse" asp-action="NewResource">Žaliava</a>
+							</li>
+						}
+						@if (User.Identity.IsAuthenticated && (User.IsInRole("vadybininkas"))) {
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Contract" asp-action="Contracts">Sutartys</a>
+							</li>
+						}
+						@if (User.Identity.IsAuthenticated && (User.IsInRole("vadybininkas"))) {
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="Report">Ataskaita</a>
+							</li>
+						}
+						@if (User.Identity.IsAuthenticated && (User.IsInRole("darbuotojas") || User.IsInRole("vadybininkas") || User.IsInRole("pirkėjas"))) {
+							<li class="nav-item">
+								<a class="nav-link text-dark" asp-area="" asp-controller="Profile" asp-action="Logout">Atsijungti</a>
+							</li>
+						}
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+	<div class="container">
+		<main role="main" class="pb-3">
+			@RenderBody()
+		</main>
+	</div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - Baldu_Gamybos_IS - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+	<footer class="border-top footer text-muted">
+		<div class="container">
+			&copy; 2021 - Baldu_Gamybos_IS - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+		</div>
+	</footer>
+	<script src="~/lib/jquery/dist/jquery.min.js"></script>
+	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="~/js/site.js" asp-append-version="true"></script>
+	@await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
