@@ -63,7 +63,6 @@ namespace mvc_auth_test.Controllers
         }
         [Authorize]
         public IActionResult CreatePayment(Payment newPay,int type) {
-            //Validate perhaps
             if (this.Context.GenericOrders.Any(h=>h.Id==newPay.FkOrder)){
                 if(type==0){
                     TempData["SuccessState"]=3;

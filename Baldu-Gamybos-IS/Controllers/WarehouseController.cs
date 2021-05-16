@@ -83,7 +83,7 @@ namespace mvc_auth_test.Controllers
             var resource = Context.Resources.Select(r => new Resource(r)).ToList();
             List<EstResource> estResource = new List<EstResource>();
             foreach(var res in resource){
-                double est = EstimateResource(res.Id);
+                double est = ApproximateResources(res.Id);
                 EstResource er = new EstResource(res, est);
                 estResource.Add(er);
             }
@@ -184,7 +184,7 @@ namespace mvc_auth_test.Controllers
             var unixDateTime = dateTimeOffset.ToUnixTimeSeconds();
             return unixDateTime;
         }
-        public Double EstimateResource(int id)
+        public Double ApproximateResources(int id)
         {
             long day = 86400; //day in seconds
             long days30 = day * 30; //30 days in seconds
@@ -209,8 +209,6 @@ namespace mvc_auth_test.Controllers
                 v.addDesc((double)d.Time, d.Amount);
             }
             double left = Math.Round(-v.LastY / (v.Y /v.X) / day, 2);
-            // Console.WriteLine("x:{0} y:{1} last:{2} slope(s):{3} left:{4}", v.X, v.Y, v.LastY, v.Y /v.X, left);
-            // var data = Context.Resources.FromSqlRaw("SELECT t.* FROM (SELECT prt.initial_amount, pt.time FROM resource as r INNER JOIN product_resource as pr ON (r.id={0} AND r.id=pr.fk_resource) INNER JOIN product_resource_transaction as prt ON prt.fk_prod_res=pr.id INNER JOIN product_transaction as pt ON pt.id=prt.fk_prod_trans UNION SELECT rt2.initial_amount, rt2.time FROM resource as r2 INNER JOIN resource_transaction as rt2 ON (r2.id={1} AND r2.id=rt2.fk_resource)) as t ORDER BY t.time LIMIT 50", id, id).ToList();
             return left;
         }
 
