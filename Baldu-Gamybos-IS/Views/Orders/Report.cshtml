@@ -3,3 +3,73 @@
 	ViewData["Title"] = "Report";
 }
 
+<!DOCTYPE html>
+<head>
+	<link rel="stylesheet" href="~/css/warehouse.css" />
+	<style>
+		body {
+			margin: 0;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		.center {
+			text-align: center;
+		}
+
+		#customers .wire {
+			text-align: left;
+			position: relative;
+			right: 9px;
+			border: 0px
+		}
+	</style>
+</head>
+<body>
+	<center>
+		<table id="customers" style="width:100%;">
+			<tr>
+				<th style="width:80%">Adresas</th>
+				<th style="width:20%">Pašto kodas</th>
+			</tr>
+			<tr>
+				<td>
+					Užsakymų skaičius
+				</td>
+				<td>
+					@this.Model.Count()
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Mūsų užsakymų skaičius
+				</td>
+				<td>
+					@this.Model.Where(o => o.Direction.GetValueOrDefault()).Count()
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Klientų užsakymų skaičius
+				</td>
+				<td>
+					@this.Model.Where(o => !o.Direction.GetValueOrDefault()).Count()
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Brangiausias užsakymas
+				</td>
+				<td>
+					@{
+						Single max = this.Model.Aggregate(0.0f, (max, o) => o.Price.GetValueOrDefault() > max ? o.Price.GetValueOrDefault() : max, max => max);
+						GenericOrder order = this.Model.First(o => o.Price == max);
+					}
+					@String.Format("{0}: {1}", order.Id, max)
+				</td>
+			</tr>
+			<tr>
+				<th colspan=2></th>
+			</tr>
+		</table>
+	</center>
+</body>
