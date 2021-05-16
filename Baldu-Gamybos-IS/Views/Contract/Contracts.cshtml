@@ -63,11 +63,11 @@
 					<tr>
 						<td class='center'>@c.Name</td>
 						<td class='center'>@c.Number</td>
-						<td class='center'>@c.StartDate?.ToString("yyyy-mm-dd")</td>
-						<td class='center'>@c.EndDate?.ToString("yyyy-mm-dd")</td>
-						<td class='center'>@c.InitDate?.ToString("yyyy-mm-dd")</td>
+						<td class='center'>@c.StartDate?.ToString("yyyy-MM-dd")</td>
+						<td class='center'>@c.EndDate?.ToString("yyyy-MM-dd")</td>
+						<td class='center'>@c.InitDate?.ToString("yyyy-MM-dd")</td>
 						<td class='center'>@c.FkContractTypeNavigation?.Name</td>
-						<td class='center'>@(c.FkProfileNavigation?.FirstName + c.FkProfileNavigation?.LastName)</td>
+						<td class='center'>@(c.FkProfileNavigation?.FirstName + " " + c.FkProfileNavigation?.LastName)</td>
 					</tr>
 				}
 				<tr>

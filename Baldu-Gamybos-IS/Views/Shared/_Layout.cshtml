@@ -44,32 +44,27 @@
 								<a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="Order">Užsakymas</a>
 							</li>
 						}
-						@if (User.Identity.IsAuthenticated && (User.IsInRole("vadybininkas"))) {
+						@if (User.Identity.IsAuthenticated && User.IsInRole("vadybininkas")) {
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-area="" asp-controller="Supplier" asp-action="Supplier">Tiekėjai</a>
 							</li>
 						}
-						@if (User.Identity.IsAuthenticated && (User.IsInRole("vadybininkas"))) {
+						@if (User.Identity.IsAuthenticated && User.IsInRole("vadybininkas")) {
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-area="" asp-controller="Distributor" asp-action="Distributors">Išvežiotojai</a>
 							</li>
 						}
-						@if (User.Identity.IsAuthenticated && (User.IsInRole("vadybininkas"))) {
+						@if (User.Identity.IsAuthenticated && User.IsInRole("vadybininkas")) {
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-area="" asp-controller="Payment" asp-action="Payments">Mokėjimai</a>
 							</li>
 						}
-						@if (User.Identity.IsAuthenticated && (User.IsInRole("vadybininkas"))) {
-							<li class="nav-item">
-								<a class="nav-link text-dark" asp-area="" asp-controller="Warehouse" asp-action="NewResource">Žaliava</a>
-							</li>
-						}
-						@if (User.Identity.IsAuthenticated && (User.IsInRole("vadybininkas"))) {
+						@if (User.Identity.IsAuthenticated && User.IsInRole("vadybininkas")) {
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-area="" asp-controller="Contract" asp-action="Contracts">Sutartys</a>
 							</li>
 						}
-						@if (User.Identity.IsAuthenticated && (User.IsInRole("vadybininkas"))) {
+						@if (User.Identity.IsAuthenticated && User.IsInRole("vadybininkas")) {
 							<li class="nav-item">
 								<a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="Report">Ataskaita</a>
 							</li>

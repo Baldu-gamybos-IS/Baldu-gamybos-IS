@@ -28,8 +28,7 @@
 	<center>
 		<table id="customers" style="width:100%;">
 			<tr>
-				<th style="width:80%">Adresas</th>
-				<th style="width:20%">Pašto kodas</th>
+				<th colspan=2></th>
 			</tr>
 			<tr>
 				<td>
@@ -71,6 +70,14 @@
 						GenericOrder order = this.Model.Orders.First(o => o.Price == max);
 					}
 					@String.Format("{0}: {1}", order.Id, max)
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Užsakymų kainų vidurkis
+				</td>
+				<td>
+					@this.Model.Orders.Average(o => o.Price.GetValueOrDefault()).ToString()
 				</td>
 			</tr>
 			<tr>

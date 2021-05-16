@@ -93,6 +93,11 @@
 				}
                 <tr style="height: 40px;"></tr>
                 <tr style="background-color:white;">
+                    @if (User.Identity.IsAuthenticated && User.IsInRole("vadybininkas")) {
+                        <td colspan="4" class="wire">
+                            <a class="btn button" asp-area="" asp-controller="Warehouse" asp-action="NewResource">Nauja žaliava</a>
+                        </td>
+                    }
                     <td class="wire" style="text-align: right;">
                         <b><label>Rodyti:</label></b>
                     </td>
