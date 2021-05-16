@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Baldu_Gamybos_IS.Models.GenericOrder>;
+﻿@model Baldu_Gamybos_IS.Models.ViewModel.ReportView.ReportView;
 @{
 	ViewData["Title"] = "Report";
 }
@@ -36,7 +36,7 @@
 					Užsakymų skaičius
 				</td>
 				<td>
-					@this.Model.Count()
+					@this.Model.Orders.Count()
 				</td>
 			</tr>
 			<tr>
@@ -44,7 +44,7 @@
 					Mūsų užsakymų skaičius
 				</td>
 				<td>
-					@this.Model.Where(o => o.Direction.GetValueOrDefault()).Count()
+					@this.Model.Orders.Where(o => o.Direction.GetValueOrDefault()).Count()
 				</td>
 			</tr>
 			<tr>
@@ -52,17 +52,23 @@
 					Klientų užsakymų skaičius
 				</td>
 				<td>
-					@this.Model.Where(o => !o.Direction.GetValueOrDefault()).Count()
+					@this.Model.Orders.Where(o => !o.Direction.GetValueOrDefault()).Count()
 				</td>
 			</tr>
+			@foreach (OrderStatus s in this.Model.Statuses) {
+				<tr>
+					<td>@String.Format("Užsakymų skaičius su statusu: {0}", s.Name)</td>
+					<td>@s.GenericOrders.Count</td>
+				</tr>
+			}
 			<tr>
 				<td>
 					Brangiausias užsakymas
 				</td>
 				<td>
 					@{
-						Single max = this.Model.Aggregate(0.0f, (max, o) => o.Price.GetValueOrDefault() > max ? o.Price.GetValueOrDefault() : max, max => max);
-						GenericOrder order = this.Model.First(o => o.Price == max);
+						Single max = this.Model.Orders.Aggregate(0.0f, (max, o) => o.Price.GetValueOrDefault() > max ? o.Price.GetValueOrDefault() : max, max => max);
+						GenericOrder order = this.Model.Orders.First(o => o.Price == max);
 					}
 					@String.Format("{0}: {1}", order.Id, max)
 				</td>

@@ -28,7 +28,7 @@ namespace mvc_auth_test.Controllers {
 
 		[Authorize(Roles = "vadybininkas")]
 		public IActionResult Contract() {
-			return this.View("Contract", new ContractView(this.Context.Profiles));
+			return this.View("Contract", new ContractView{ Profiles = this.Context.Profiles });
 		}
 
 		[Authorize(Roles = "vadybininkas")]

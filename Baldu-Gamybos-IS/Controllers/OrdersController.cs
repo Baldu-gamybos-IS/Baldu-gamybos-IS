@@ -6,6 +6,7 @@ using Baldu_Gamybos_IS.Models;
 using Microsoft.EntityFrameworkCore;
 using Baldu_Gamybos_IS.Models.ViewModel.OrderView;
 using Microsoft.AspNetCore.Authorization;
+using Baldu_Gamybos_IS.Models.ViewModel.ReportView;
 
 namespace mvc_auth_test.Controllers {
 	public class OrdersController : Controller {
@@ -142,7 +143,7 @@ namespace mvc_auth_test.Controllers {
 
 		[Authorize(Roles = "vadybininkas")]
 		public IActionResult Report() {
-			return this.View("Report", this.Context.GenericOrders);
+			return this.View("Report", new ReportView{ Orders = this.Context.GenericOrders, Statuses = this.Context.OrderStatuses });
 		}
 	}
 }

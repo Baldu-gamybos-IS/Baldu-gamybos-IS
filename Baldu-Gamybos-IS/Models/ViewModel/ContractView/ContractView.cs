@@ -10,10 +10,6 @@ namespace Baldu_Gamybos_IS.Models.ViewModel.ContractView {
 		public String ContractType { get; set; }
 		public String Profile { get; set; }
 
-		public ContractView() {}
-
-		public ContractView(IEnumerable<Profile> profiles) {
-			this.Profiles = profiles;
-		}
+		public ContractView() { }
 	}
 }
