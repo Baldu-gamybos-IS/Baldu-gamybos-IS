@@ -42,7 +42,6 @@ namespace mvc_auth_test.Controllers {
 				FkSupplier = r.FkSupplier,
 				FkStatusNavigation = r.FkStatusNavigation,
 				FkProfileNavigation = r.FkProfileNavigation,
-
 			});
 			return View(orders);
 		}
