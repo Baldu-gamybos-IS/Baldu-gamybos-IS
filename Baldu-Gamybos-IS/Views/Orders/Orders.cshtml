@@ -101,7 +101,8 @@
 					<th style="width:10%">Parinktys</th>
 				</tr>
 				@foreach (var item in Model) {
-					<tr class="@(item.Direction == null ? null : ((bool)item.Direction ? "direction1" : "direction2"))">
+                    @if(User.Identity.IsAuthenticated && (User.IsInRole("vadybininkas") ||(User.IsInRole("darbuotojas")))){
+                        <tr class="@(item.Direction == null ? null : ((bool)item.Direction ? "direction1" : "direction2"))">
 						<td class='center'>@item.Id</td>
 						<td class='center'>@item.FkStatusNavigation?.Name</td>
 						<td class='center'>@(item.Price == null ? "nenustatyta" : item.Price)</td>
@@ -111,6 +112,19 @@
 							<a href='./ShowOrder?id=@item.Id' class='btn' style='background-color:#00d4ff; color:black'>Peržiūrėti</a>
 						</td>
 					</tr>
+                    }
+                    else if(item.FkProfileNavigation!=null && item.FkProfileNavigation.Username!=null && item.FkProfileNavigation.Username==User.Identity.Name){
+                        <tr class="@(item.Direction == null ? null : ((bool)item.Direction ? "direction1" : "direction2"))">
+						<td class='center'>@item.Id</td>
+						<td class='center'>@item.FkStatusNavigation?.Name</td>
+						<td class='center'>@(item.Price == null ? "nenustatyta" : item.Price)</td>
+						<td class='center'>@item.PayedAmount</td>
+						<td>
+							<a href='./ShowOrder?id=@item.Id' class='btn' style='background-color:#00d4ff; color:black'>Peržiūrėti</a>
+						</td>
+					</tr>
+                    }
+					
 				}
 				<tr>
 					<th colspan="6"> &#160;</th>
