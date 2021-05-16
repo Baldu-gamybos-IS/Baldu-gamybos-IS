@@ -1,0 +1,79 @@
+﻿@model Baldu_Gamybos_IS.Models.ViewModel.ContractView.ContractView;
+@{
+	ViewData["Title"] = "Contract";
+}
+
+<!DOCTYPE html>
+<head>
+	<link rel="stylesheet" href="~/css/warehouse.css" />
+	<style>
+		body {
+			margin: 0;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		.center {
+			text-align: center;
+		}
+
+		#customers .wire {
+			text-align: left;
+			position: relative;
+			right: 9px;
+			border: 0px
+		}
+	</style>
+</head>
+<body>
+	<center>
+		<div class="container box" style="width:100%; margin-bottom:2%; height:15%">
+			<div class="wire boxall" style="left:0px; width:95%">
+				<h4>
+					<b class="bold">Suveskite sutarties duomenis:</b>
+				</h4>
+			</div>
+			<form asp-controller="Contract" asp-action="CreateContract" method="POST" enctype="multipart/form-data">
+				<table id="customers" style="width:95%;">
+					<tr>
+						<th style="width:16%">Pavadinimas</th>
+						<th style="width:10%">Numeris</th>
+						<th style="width:12%">Pradžios data</th>
+						<th style="width:12%">Pabaigos data</th>
+						<th style="width:15%">Sutarties tipas</th>
+						<th style="width:15%">Sutarties dalyvis</th>
+						<th style="width:10%">Failai</th>
+					</tr>
+					<tr>
+						<td>
+							@Html.TextBoxFor(model => model.contract.Name, new { style = "width:100%", required = "required", placeholder = "Pavadinimas" })
+						</td>
+						<td>
+							@Html.TextBoxFor(model => model.contract.Number, new { style = "width:100%", required = "required", placeholder = "Numeris" })
+						</td>
+						<td>
+							@Html.TextBoxFor(model => model.contract.StartDate, new { style = "width:100%", type = "date", required = "required" })
+						</td>
+						<td>
+							@Html.TextBoxFor(model => model.contract.EndDate, new { style = "width:100%", type = "date", required = "required" })
+						</td>
+						<td>
+							@Html.TextBoxFor(model => model.ContractType, new { style = "width:100%", required = "required", placeholder = "Sutarties tipas" })
+						</td>
+						<td>
+							@Html.DropDownListFor(model => model.Profile, Model.profiles.Select(p => new SelectListItem(new String((p.FirstName + " " + p.LastName).Take(15).ToArray()), p.Id.ToString())))
+						</td>
+						<td>
+							@Html.TextBoxFor(model => model.Files, new { style = "width:100%", type = "file", multiple = "multiple" })
+						</td>
+					</tr>
+					<tr>
+						<th colspan=6></th>
+						<th>
+							<button type="submit" style='background-color:#00d4ff; color:black'>Sukurti</button>
+						</th>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</center>
+</body>

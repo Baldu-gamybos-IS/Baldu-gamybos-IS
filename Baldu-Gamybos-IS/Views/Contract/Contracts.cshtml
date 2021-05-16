@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Baldu_Gamybos_IS.Models.Contract>;
+@{
+	ViewData["Title"] = "Contracts";
+}
+
+<!DOCTYPE html>
+<head>
+	<link rel="stylesheet" href="~/css/warehouse.css" />
+	<style>
+		body {
+			margin: 0;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+
+		.center {
+			text-align: center;
+		}
+
+		#customers .wire {
+			text-align: left;
+			position: relative;
+			right: 9px;
+			border: 0px
+		}
+	</style>
+</head>
+<body>
+	<center>
+		<div class="container box" style="width:100%; margin-bottom:2%; height:15%;">
+			<div class="wire boxall" style="left:0px; width:95%;">
+				<h4>
+					<b class="bold">Sutarčių sąrašas:</b>
+				</h4>
+				@if (ViewData["Success"] != null) {
+					<div id="div-1">
+						<label class="pull-center" style="color:green; font-size:30px;">Nauja sutartis sėkmingai pridėta</label>
+					</div>
+					<script type="text/javascript">
+						setTimeout(() => {
+							const elem = document.getElementById("div-1");
+							elem.parentNode.removeChild(elem);
+						}, 30000);
+					</script>
+				}
+			</div>
+			<table id="customers" style="width:95%;">
+				<tr>
+					<th>
+						<a class="btn button" asp-area="" asp-controller="Contract" asp-action="Contract">Pridėti sutartį</a>
+					</th>
+					<th colspan=6></th>
+				</tr>
+				<tr>
+					<th style="width:16%">Pavadinimas</th>
+					<th style="width:11%">Numeris</th>
+					<th style="width:11%">Pradžios data</th>
+					<th style="width:11%">Pabaigos data</th>
+					<th style="width:11%">Sukūrimo data</th>
+					<th style="width:15%">Sutarties tipas</th>
+					<th style="width:15%">Sutarties dalyvis</th>
+				</tr>
+				@foreach (Contract c in this.Model) {
+					<tr>
+						<td class='center'>@c.Name</td>
+						<td class='center'>@c.Number</td>
+						<td class='center'>@c.StartDate?.ToString("yyyy-mm-dd")</td>
+						<td class='center'>@c.EndDate?.ToString("yyyy-mm-dd")</td>
+						<td class='center'>@c.InitDate?.ToString("yyyy-mm-dd")</td>
+						<td class='center'>@c.FkContractTypeNavigation?.Name</td>
+						<td class='center'>@(c.FkProfileNavigation?.FirstName + c.FkProfileNavigation?.LastName)</td>
+					</tr>
+				}
+				<tr>
+					<th colspan=7></th>
+				</tr>
+			</table>
+		</div>
+	</center>
+</body>
