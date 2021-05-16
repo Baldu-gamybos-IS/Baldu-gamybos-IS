@@ -90,7 +90,7 @@ namespace mvc_auth_test.Controllers
                 await HttpContext.SignInAsync(claimsPrincipal);
                 return Redirect("Profile/SignIn");
             }
-            TempData["Error"] = "Neteisingas vartotojo vardas arba slaptažodis";
+            TempData["Error"] = "Neteisingas naudotojo vardas arba slaptažodis";
             return View("login");
         }
 
@@ -124,17 +124,17 @@ namespace mvc_auth_test.Controllers
                 return View("register");
             }
             if(username == null || username.Length > 255){
-                TempData["Error"] = "Vartotojo vardas yra per ilgas";
+                TempData["Error"] = "Naudotojo vardas yra per ilgas";
                 return View("register");
             }
             bool profile_exists = Context.Profiles.Any(s => s.Username == username);
             if(profile_exists){
-                TempData["Error"] = "Vartotojas tokiu vartotojo vardu egzistuoja";
+                TempData["Error"] = "Naudotojas tokiu naudotojo vardu egzistuoja";
                 return View("register");
             }
             profile_exists = Context.Profiles.Any(s => s.Email == email);
             if(profile_exists){
-                TempData["Error"] = "Vartotojas su tokiu el. paštu egzistuoja";
+                TempData["Error"] = "Naudotojas su tokiu el. paštu egzistuoja";
                 return View("register");
             }
             if(email == null || email.Length > 255){
