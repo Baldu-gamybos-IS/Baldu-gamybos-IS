@@ -77,7 +77,7 @@
 					Užsakymų kainų vidurkis
 				</td>
 				<td>
-					@this.Model.Orders.Average(o => o.Price.GetValueOrDefault()).ToString()
+					@Math.Round(this.Model.Orders.Average(o => o.Price.GetValueOrDefault()), 2, MidpointRounding.AwayFromZero)
 				</td>
 			</tr>
 			<tr>
